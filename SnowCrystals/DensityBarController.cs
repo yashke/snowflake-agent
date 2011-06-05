@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Crystals;
 
 namespace SnowCrystals
 {
@@ -9,9 +10,9 @@ namespace SnowCrystals
     {
         class DensityListener : DensityChangeListener
         {
-            Crystals.Environment environment;
+            Habitat environment;
 
-            public DensityListener(Crystals.Environment env)
+            public DensityListener(Habitat env)
             {
                 environment = env;
             }
@@ -24,9 +25,9 @@ namespace SnowCrystals
 
         private GrowthSimulation view;
         private DensityListener densityListener;
-        private Crystals.Environment environment;
+        private Habitat environment;
 
-        public DensityBarController(GrowthSimulation v, Crystals.Environment env)
+        public DensityBarController(GrowthSimulation v, Habitat env)
         {
             view = v;
             environment = env;

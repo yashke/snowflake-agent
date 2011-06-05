@@ -8,14 +8,14 @@ namespace Crystals
 {
     public class Molecule
     {
-        Environment environment;
+        Habitat habitat;
 
         Position Position { get; set; }
-        V Direction { get; set; }
+        public Thread Thread { get; set; }
 
-        public Molecule(Environment environment)
+        public Molecule(Habitat habitat)
         {
-            this.environment = environment;
+            this.habitat = habitat;
         }
 
         public void Appear(object position)
@@ -31,12 +31,14 @@ namespace Crystals
             {
                 Move();
                 TryToAttach();
+                Thread.Sleep(100);
             }
         }
 
         public void Move()
         {
-            Position.Move(Direction);
+            Position.Move();
+            habitat.Logger.Log(Position);
         }
 
         public void TryToAttach()

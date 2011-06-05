@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Crystals;
 
 namespace SnowCrystals
 {
@@ -9,9 +10,9 @@ namespace SnowCrystals
     {
         class SpeedListener : SpeedChangeListener
         {
-            Crystals.Environment environment;
+            Habitat environment;
 
-            public SpeedListener(Crystals.Environment env)
+            public SpeedListener(Habitat env)
             {
                 environment = env;
             }
@@ -22,11 +23,11 @@ namespace SnowCrystals
             }
         }
 
-        private Crystals.Environment environment;
+        private Habitat environment;
         private SpeedListener speedListener;
         private GrowthSimulation view;
 
-        public SpeedBarController(GrowthSimulation v, Crystals.Environment env)
+        public SpeedBarController(GrowthSimulation v, Habitat env)
         {
             view = v;
             environment = env;

@@ -15,14 +15,14 @@ namespace SnowCrystals
         private static DensityBarController densityBarController;
         private static SpeedBarController speedBarController;
         private static GrowthSimulation growthSimulation;
-        private static Crystals.Environment env;
+        private static Habitat env;
 
         [STAThread]
         static void Main()
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            env = new Crystals.Environment(0, 0, 0);
+            env = new Habitat(0, 0, 0, 0);
             growthSimulation = new GrowthSimulation();
             densityBarController = new DensityBarController(growthSimulation, env);
             densityBarController.BindListeners();

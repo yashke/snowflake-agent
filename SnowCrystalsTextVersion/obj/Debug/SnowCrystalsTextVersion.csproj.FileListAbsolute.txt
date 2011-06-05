@@ -1,0 +1,14 @@
+C:\Users\Gyarill\Desktop\Systemy Inteligentnych Agentow\SnowCrystals\SnowCrystalsTextVersion\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Gyarill\Desktop\Systemy Inteligentnych Agentow\SnowCrystals\SnowCrystalsTextVersion\bin\Debug\SnowCrystalsTextVersion.exe
+C:\Users\Gyarill\Desktop\Systemy Inteligentnych Agentow\SnowCrystals\SnowCrystalsTextVersion\bin\Debug\SnowCrystalsTextVersion.pdb
+C:\Users\Gyarill\Desktop\Systemy Inteligentnych Agentow\SnowCrystals\SnowCrystalsTextVersion\bin\Debug\Crystals.dll
+C:\Users\Gyarill\Desktop\Systemy Inteligentnych Agentow\SnowCrystals\SnowCrystalsTextVersion\bin\Debug\Crystals.pdb
+C:\Users\Gyarill\Desktop\Systemy Inteligentnych Agentow\SnowCrystals\SnowCrystalsTextVersion\obj\Debug\SnowCrystalsTextVersion.exe
+C:\Users\Gyarill\Desktop\Systemy Inteligentnych Agentow\SnowCrystals\SnowCrystalsTextVersion\obj\Debug\SnowCrystalsTextVersion.pdb
+C:\Users\Gyarill\Desktop\Systemy Inteligentnych Agentow\SnowFlake\snowflake-agent\SnowCrystalsTextVersion\obj\Debug\SnowCrystalsTextVersion.exe
+C:\Users\Gyarill\Desktop\Systemy Inteligentnych Agentow\SnowFlake\snowflake-agent\SnowCrystalsTextVersion\obj\Debug\SnowCrystalsTextVersion.pdb
+C:\Users\Gyarill\Desktop\Systemy Inteligentnych Agentow\SnowFlake\snowflake-agent\SnowCrystalsTextVersion\bin\Debug\SnowCrystalsTextVersion.exe
+C:\Users\Gyarill\Desktop\Systemy Inteligentnych Agentow\SnowFlake\snowflake-agent\SnowCrystalsTextVersion\bin\Debug\SnowCrystalsTextVersion.pdb
+C:\Users\Gyarill\Desktop\Systemy Inteligentnych Agentow\SnowFlake\snowflake-agent\SnowCrystalsTextVersion\bin\Debug\Crystals.dll
+C:\Users\Gyarill\Desktop\Systemy Inteligentnych Agentow\SnowFlake\snowflake-agent\SnowCrystalsTextVersion\bin\Debug\Crystals.pdb
+C:\Users\Gyarill\Desktop\Systemy Inteligentnych Agentow\SnowFlake\snowflake-agent\SnowCrystalsTextVersion\obj\Debug\ResolveAssemblyReference.cache
