@@ -1,0 +1,8 @@
+\beamer@endinputifotherversion {3.10pt}
+\beamer@sectionintoc {1}{Fizyka}{2}{0}{1}
+\beamer@subsectionintoc {1}{1}{Szlifowanie kryszta\IeC {\l }u}{4}{0}{1}
+\beamer@subsectionintoc {1}{2}{Rozga\IeC {\l }\IeC {\k e}zianie p\IeC {\l }atka}{5}{0}{1}
+\beamer@sectionintoc {2}{Plan rozwoju}{8}{0}{2}
+\beamer@subsectionintoc {2}{1}{Wersja I}{8}{0}{2}
+\beamer@subsectionintoc {2}{2}{Wersja II}{9}{0}{2}
+\beamer@subsectionintoc {2}{3}{Wersja III}{10}{0}{2}

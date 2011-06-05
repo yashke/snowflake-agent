@@ -1,0 +1,48 @@
+% copyright by Marcin Stelmach, Pawel Pasiecznik
+
+\mode<presentation>
+
+\useinnertheme[shadow=true]{rounded}
+\usecolortheme{orchid}
+\usecolortheme{whale}
+\useoutertheme{shadow}
+\usefonttheme[onlysmall]{structurebold}
+
+\setbeamerfont{block title}{size={}}
+
+% modyfikacja shadow
+
+\usepackage{beamercolorthemedolphin}
+
+\definecolor{MyColor1}{rgb}{0.0,0.41,0.0}
+\definecolor{MyColor2}{rgb}{0.83,0.87,0.83}
+
+\setbeamercolor{structure}{fg=MyColor1!85!black}
+\setbeamercolor*{palette primary}{use=structure,fg=black,bg=MyColor2} %kolor lewej strony (tam jest spis sekcji)
+\setbeamercolor{palette secondary}{fg=white,bg=MyColor2} %nie wiem co to koloruje ;)
+\setbeamercolor{palette tertiary}{fg=white,bg=MyColor2}  %nie wiem co to koloruje ;)
+\setbeamercolor*{palette quaternary}{fg=white,bg=MyColor1} %kolor prawej strony (tam jest spis podsekcji)
+\setbeamercolor{block title}{use=structure,fg=white,bg=MyColor1} %kolor nag��wk�w w \begin{block}
+\setbeamercolor{title}{use=structure,fg=white,bg=MyColor1}
+
+\definecolor{topcolour}{rgb}{0.64,0.72,0.64}
+\definecolor{bottomcolour}{rgb}{0.0,0.19,0.0}
+\definecolor{middlecolour}{rgb}{0.64,0.72,0.64}
+\setbeamertemplate{background canvas}[vertical shading]
+[bottom=bottomcolour, middle=middlecolour, top=white]
+
+\definecolor{boxcolor}{rgb}{0.93,0.97,0.93}
+\beamersetaveragebackground{boxcolor}
+
+\setbeamertemplate{blocks}[rounded]% [shadow=false]
+\setbeamertemplate{title page}[default][colsep=-4bp,rounded=true]
+
+%\setbeamertemplate{frametitle}[default][colsep=-4bp,rounded=false,shadow=false]
+
+\pgfdeclareverticalshading{beamer@belowframetitle}{\the\paperwidth}{%
+      color(0ex)=(black);%PUT THE COLOUR YOU WANT, INSTEAD OF black
+      color(0.5ex)=(frametitle.bg)
+    }
+
+\mode
+<all>
