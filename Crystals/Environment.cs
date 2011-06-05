@@ -11,10 +11,10 @@ namespace Crystals
         public Double Speed { get; set; }
         public Double Density { get; set; }
         public Double Volume { get; private set; }
-        public UInt32 MoleculeCount { get { return (UInt32)Density * Volume; } }
+        public UInt32 MoleculeCount { get { return (UInt32) (Density * Volume); } }
 
         public Double Density_Current { get; private set; }
-        public UInt32 MoleculeCount_Current { get { return (UInt32)Density_Current * Volume; } }
+        public UInt32 MoleculeCount_Current { get { return (UInt32) (Density_Current * Volume); } }
 
         public Position CondensationCenter { get; private set; }
         public Double Radius { get; private set; }
@@ -35,9 +35,9 @@ namespace Crystals
         {
             for (int i = 0; i < MoleculeCount; i++)
             {
-                Molecule molecule = new Molecule(this);
+                /*Molecule molecule = new Molecule(this);
                 
-                Thread thread = Threads.Add(new Thread(new ParameterizedThreadStart(
+                Thread thread = Threads.Add(new Thread(new ParameterizedThreadStart(*/
             }
         }
 

@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.21022</ProductVersion>
+    <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{6A74634A-4DC1-447B-80F8-0EAFDFB8C359}</ProjectGuid>
     <OutputType>WinExe</OutputType>
@@ -48,12 +48,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="SpeedBarController.cs" />
+    <Compile Include="DensityBarController.cs" />
     <Compile Include="GrowthSimulation.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="GrowthSimulation.Designer.cs">
       <DependentUpon>GrowthSimulation.cs</DependentUpon>
     </Compile>
+    <Compile Include="DensityChangeListener.cs" />
+    <Compile Include="SpeedChangeListener.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="GrowthSimulation.resx">
@@ -77,6 +81,12 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Crystals\Crystals.csproj">
+      <Project>{412990C2-A306-4CC7-AB03-708686988AC9}</Project>
+      <Name>Crystals</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
