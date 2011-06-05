@@ -9,7 +9,12 @@ namespace Crystals
     public class Habitat
     {
         public Logger Logger { get; set; }
-        public Double Speed { get; set; }
+
+        /// <summary>
+        /// [Celcius]
+        /// </summary>
+        public double Temperature { get; set; }
+     
         public Double Density { get; set; }
         public Double Volume { get; private set; }
         public UInt32 MoleculeCount { get { return (UInt32)(Density * Volume); } }
@@ -18,19 +23,19 @@ namespace Crystals
         public UInt32 MoleculeCount_Current { get { return (UInt32)(Density_Current * Volume); } }
 
         public Position CondensationCenter { get; private set; }
-        public Double Width { get; private set; }
-        public Double Height { get; private set; }
-      
+        public Double Radius { get; private set; }
+
         List<Molecule> Molecules;
 
-        public Habitat(double width, double height, double speed, double density)
+        public Habitat(double radius, double temperature, double density)
         {
-            CondensationCenter = new Position(width / 2, height / 2, new V(0, 0));
+            CondensationCenter = new Position(0, 0, new V(0, 0));
             Molecules = new List<Molecule>();
-            this.Speed = speed;
+            this.Temperature = temperature;
             this.Density = density;
-            this.Volume = width * height;
+            this.Volume = Math.PI * radius * radius;
             this.Density_Current = density;
+            this.Radius = radius;
             Logger = new Logger();
         }
 
@@ -38,20 +43,16 @@ namespace Crystals
         {
             for (int i = 0; i < MoleculeCount; i++)
             {
-                Molecule molecule = new Molecule(this);
-
+                var molecule = new Molecule(this);
                 Molecules.Add(molecule);
-
-                molecule.Thread = new Thread(new ParameterizedThreadStart(molecule.Appear));
-
-                molecule.Thread.Start(Position.NextRandomPosition(Width, Height, Speed));
+                molecule.ThreadStart();
             }
 
             foreach (Molecule molelule in Molecules)
             {
-                molelule.Thread.Join();
+                molelule.ThreadJoin();
             }
         }
 
-     }
+    }
 }

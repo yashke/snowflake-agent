@@ -36,32 +36,13 @@ namespace Crystals
 
         public static Random random = new Random();
 
-        public static Position NextRandomPosition(double width, double height, double speed)
+        public static Position NextRandomPosition(double radius, double speed)
         {
-            var d = 2 * (width + height) * random.NextDouble();
+            var alpha = 2 * Math.PI * random.NextDouble();
 
-            double x, y;
+            var x = Math.Cos(alpha);
+            var y = Math.Sin(alpha);
 
-            if (d < width)
-            {
-                x = d;
-                y = 0;
-            }
-            else if (d < 2 * width)
-            {
-                x = d - width;
-                y = height;
-            }
-            else if (d < 2 * width + height)
-            {
-                x = 0;
-                y = d - 2 * width;
-            }
-            else
-            {
-                x = width;
-                y = d - 2 * width - height;
-            }
             return new Position(x, y, Position.NextRandomDirection(speed));
         }
 

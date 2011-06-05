@@ -60,7 +60,7 @@
             // densityLabel
             // 
             this.densityLabel.AutoSize = true;
-            this.densityLabel.Location = new System.Drawing.Point(12, 382);
+            this.densityLabel.Location = new System.Drawing.Point(22, 382);
             this.densityLabel.Name = "densityLabel";
             this.densityLabel.Size = new System.Drawing.Size(45, 13);
             this.densityLabel.TabIndex = 1;
@@ -69,11 +69,11 @@
             // speedLabel
             // 
             this.speedLabel.AutoSize = true;
-            this.speedLabel.Location = new System.Drawing.Point(12, 435);
+            this.speedLabel.Location = new System.Drawing.Point(-3, 435);
             this.speedLabel.Name = "speedLabel";
-            this.speedLabel.Size = new System.Drawing.Size(41, 13);
+            this.speedLabel.Size = new System.Drawing.Size(70, 13);
             this.speedLabel.TabIndex = 2;
-            this.speedLabel.Text = "Speed:";
+            this.speedLabel.Text = "Temperature:";
             // 
             // speedBar
             // 
@@ -106,9 +106,9 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(260, 487);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(79, 13);
+            this.label2.Size = new System.Drawing.Size(73, 13);
             this.label2.TabIndex = 6;
-            this.label2.Text = "Currrent speed:";
+            this.label2.Text = "Currrent temp:";
             // 
             // currentSpeedTB
             // 

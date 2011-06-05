@@ -19,7 +19,7 @@ namespace SnowCrystals
 
             public void Changed(Object sender, int value)
             {
-                environment.Speed = value;
+                environment.Temperature = value;
             }
         }
 

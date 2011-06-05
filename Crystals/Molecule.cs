@@ -13,10 +13,34 @@ namespace Crystals
         Position Position { get; set; }
         public Thread Thread { get; set; }
 
+        /// <summary>
+        /// [m/s]
+        /// </summary>
+        double Speed
+        {
+            get
+            {
+                return 640 * Math.Sqrt(habitat.Temperature / 25);
+            }
+        }
+
         public Molecule(Habitat habitat)
         {
             this.habitat = habitat;
+            this.Thread = new Thread(new ParameterizedThreadStart(this.Appear));
+
         }
+
+        public void ThreadStart()
+        {
+            this.Thread.Start(Position.NextRandomPosition(habitat.Radius, this.Speed));
+        }
+
+        public void ThreadJoin()
+        {
+            this.Thread.Join();
+        }
+
 
         public void Appear(object position)
         {

@@ -54,5 +54,6 @@ namespace SnowCrystals
         {
             currentSpeedTB.Text = speedBar.Value.ToString();
         }
+
     }
 }
