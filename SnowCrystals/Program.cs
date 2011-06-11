@@ -28,6 +28,7 @@ namespace SnowCrystals
             densityBarController.BindListeners();
             speedBarController = new SpeedBarController(growthSimulation, env);
             speedBarController.BindListeners();
+            env.Start();
             Application.Run(growthSimulation);
         }
     }
