@@ -37,7 +37,6 @@ namespace Crystals
             this.Radius = radius;
             Logger = new Logger();
             Molecules = new MoleculeContainer();
-        
         }
 
         public void Start()
@@ -59,6 +58,11 @@ namespace Crystals
         {
            return Molecules.GetMoveInterferer(molecule);
 
+        }
+
+        public void ChangeMoleculePosition(Molecule molecule, double x, double y)
+        {
+            Molecules.ChangePosition(molecule, x, y);
         }
     }
 }

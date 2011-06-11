@@ -8,7 +8,7 @@ namespace Crystals
 {
     public class Position
     {
-        double X, Y;
+        public double X, Y;
         public V Direction { get; set; }
 
         public Position(double x, double y, V direction)

@@ -15,6 +15,7 @@ namespace SnowCrystals
         private static DensityBarController densityBarController;
         private static SpeedBarController speedBarController;
         private static GrowthSimulation growthSimulation;
+        private static MainPanelController mainPanelController;
         private static Habitat env;
 
         [STAThread]
@@ -28,6 +29,7 @@ namespace SnowCrystals
             densityBarController.BindListeners();
             speedBarController = new SpeedBarController(growthSimulation, env);
             speedBarController.BindListeners();
+            mainPanelController = new MainPanelController(growthSimulation, env);
             env.Start();
             Application.Run(growthSimulation);
         }

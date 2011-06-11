@@ -11,6 +11,8 @@ namespace Crystals
         bool BelongsToFlake { get; set; }
         List<Molecule> Neigbours = new List<Molecule>();
 
+        List<IPositionChangeListener> positionChangeListeners = new List<IPositionChangeListener>();
+
         Habitat habitat;
 
         Position Position { get; set; }
@@ -71,6 +73,7 @@ namespace Crystals
         public void Move()
         {
             Position.Move();
+            habitat.ChangeMoleculePosition(this, Position.X, Position.Y);
             habitat.Logger.Log(Position);
         }
 
