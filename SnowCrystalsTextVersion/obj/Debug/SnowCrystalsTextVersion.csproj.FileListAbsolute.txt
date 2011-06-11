@@ -12,3 +12,10 @@ C:\Users\Gyarill\Desktop\Systemy Inteligentnych Agentow\SnowFlake\snowflake-agen
 C:\Users\Gyarill\Desktop\Systemy Inteligentnych Agentow\SnowFlake\snowflake-agent\SnowCrystalsTextVersion\bin\Debug\Crystals.dll
 C:\Users\Gyarill\Desktop\Systemy Inteligentnych Agentow\SnowFlake\snowflake-agent\SnowCrystalsTextVersion\bin\Debug\Crystals.pdb
 C:\Users\Gyarill\Desktop\Systemy Inteligentnych Agentow\SnowFlake\snowflake-agent\SnowCrystalsTextVersion\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Jachu\Projekty\snowflake\SnowCrystalsTextVersion\bin\Debug\SnowCrystalsTextVersion.exe
+C:\Users\Jachu\Projekty\snowflake\SnowCrystalsTextVersion\bin\Debug\SnowCrystalsTextVersion.pdb
+C:\Users\Jachu\Projekty\snowflake\SnowCrystalsTextVersion\bin\Debug\Crystals.dll
+C:\Users\Jachu\Projekty\snowflake\SnowCrystalsTextVersion\bin\Debug\Crystals.pdb
+C:\Users\Jachu\Projekty\snowflake\SnowCrystalsTextVersion\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Jachu\Projekty\snowflake\SnowCrystalsTextVersion\obj\Debug\SnowCrystalsTextVersion.exe
+C:\Users\Jachu\Projekty\snowflake\SnowCrystalsTextVersion\obj\Debug\SnowCrystalsTextVersion.pdb

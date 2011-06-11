@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.panel1 = new System.Windows.Forms.Panel();
             this.densityBar = new System.Windows.Forms.TrackBar();
             this.densityLabel = new System.Windows.Forms.Label();
             this.speedLabel = new System.Windows.Forms.Label();
@@ -37,16 +36,11 @@
             this.currentDensityTB = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.currentSpeedTB = new System.Windows.Forms.TextBox();
+            this.mainPanel = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.densityBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.speedBar)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.mainPanel)).BeginInit();
             this.SuspendLayout();
-            // 
-            // panel1
-            // 
-            this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(592, 376);
-            this.panel1.TabIndex = 0;
             // 
             // densityBar
             // 
@@ -118,11 +112,21 @@
             this.currentSpeedTB.TabIndex = 7;
             this.currentSpeedTB.Text = "0";
             // 
+            // mainPanel
+            // 
+            this.mainPanel.Location = new System.Drawing.Point(0, 12);
+            this.mainPanel.Name = "mainPanel";
+            this.mainPanel.Size = new System.Drawing.Size(592, 364);
+            this.mainPanel.TabIndex = 8;
+            this.mainPanel.TabStop = false;
+            this.mainPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.mainPanel_Paint);
+            // 
             // GrowthSimulation
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(592, 519);
+            this.Controls.Add(this.mainPanel);
             this.Controls.Add(this.currentSpeedTB);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.currentDensityTB);
@@ -131,11 +135,11 @@
             this.Controls.Add(this.speedLabel);
             this.Controls.Add(this.densityLabel);
             this.Controls.Add(this.densityBar);
-            this.Controls.Add(this.panel1);
             this.Name = "GrowthSimulation";
             this.Text = "GrowthSimulation";
             ((System.ComponentModel.ISupportInitialize)(this.densityBar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.speedBar)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.mainPanel)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -143,7 +147,6 @@
 
         #endregion
 
-        private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.TrackBar densityBar;
         private System.Windows.Forms.Label densityLabel;
         private System.Windows.Forms.Label speedLabel;
@@ -152,5 +155,6 @@
         private System.Windows.Forms.TextBox currentDensityTB;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox currentSpeedTB;
+        private System.Windows.Forms.PictureBox mainPanel;
     }
 }
