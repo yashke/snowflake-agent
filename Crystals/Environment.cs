@@ -25,18 +25,19 @@ namespace Crystals
         public Position CondensationCenter { get; private set; }
         public Double Radius { get; private set; }
 
-        List<Molecule> Molecules;
+        public MoleculeContainer Molecules;
 
         public Habitat(double radius, double temperature, double density)
         {
             CondensationCenter = new Position(0, 0, new V(0, 0));
-            Molecules = new List<Molecule>();
             this.Temperature = temperature;
             this.Density = density;
             this.Volume = Math.PI * radius * radius;
             this.Density_Current = density;
             this.Radius = radius;
             Logger = new Logger();
+            Molecules = new MoleculeContainer();
+        
         }
 
         public void Start()
@@ -54,5 +55,10 @@ namespace Crystals
             }
         }
 
+        public Molecule GetMoveInterferer(Molecule molecule)
+        {
+           return Molecules.GetMoveInterferer(molecule);
+
+        }
     }
 }

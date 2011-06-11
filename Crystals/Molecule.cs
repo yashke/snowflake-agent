@@ -8,6 +8,9 @@ namespace Crystals
 {
     public class Molecule
     {
+        bool BelongsToFlake { get; set; }
+        List<Molecule> Neigbours = new List<Molecule>();
+
         Habitat habitat;
 
         Position Position { get; set; }
@@ -53,8 +56,14 @@ namespace Crystals
 
             while (true)
             {
+                Molecule interferer = habitat.GetMoveInterferer(this);
+                if (interferer != null)
+                {
+                    this.Bump(interferer);
+                    if(interferer.BelongsToFlake)
+                        TryToAttach(interferer);
+                }
                 Move();
-                TryToAttach();
                 Thread.Sleep(100);
             }
         }
@@ -65,8 +74,23 @@ namespace Crystals
             habitat.Logger.Log(Position);
         }
 
-        public void TryToAttach()
+        public void Bump(Molecule other)
         {
+            double v2v2 = Math.Pow(this.Position.Direction.Speed, 2) + Math.Pow(other.Position.Direction.Speed, 2);
+            var s1 = Position.NextRandomSpeed(Math.Sqrt(v2v2));
+            this.Position.Direction = Position.NextRandomDirection(s1);
+            var s2 = Math.Sqrt(v2v2 - s1 * s1);
+            other.Position.Direction = Position.NextRandomDirection(s2);
+        }
+
+        Random random = new Random();
+
+        public void TryToAttach(Molecule boundMember)
+        {
+            if (random.NextDouble() > 0.5)
+            {
+
+            }
         }
 
     }

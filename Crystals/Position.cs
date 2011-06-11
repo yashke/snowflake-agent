@@ -9,7 +9,7 @@ namespace Crystals
     public class Position
     {
         double X, Y;
-        V Direction { get; set; }
+        public V Direction { get; set; }
 
         public Position(double x, double y, V direction)
         {
@@ -53,8 +53,12 @@ namespace Crystals
 
             return v;
         }
-    
 
+        public static double NextRandomSpeed(double maxSpeed)
+        {
+            return random.NextDouble() * maxSpeed;
+           }
+    
     }
 
  }

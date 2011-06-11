@@ -49,6 +49,7 @@
     <Compile Include="Logger.cs" />
     <Compile Include="Environment.cs" />
     <Compile Include="Molecule.cs" />
+    <Compile Include="MoleculeContainer.cs" />
     <Compile Include="Position.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="V.cs" />
