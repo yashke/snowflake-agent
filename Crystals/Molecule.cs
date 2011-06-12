@@ -96,5 +96,10 @@ namespace Crystals
             }
         }
 
+        public bool IsNear(Molecule otherMolecule)
+        {
+            return Position.IsNear(otherMolecule.Position);
+        }
+
     }
 }

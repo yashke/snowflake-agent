@@ -27,6 +27,13 @@ namespace Crystals
 
         public MoleculeContainer Molecules;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="radius">in angstroems (1e(-10)mm)</param>
+        /// <param name="temperature"></param>
+        /// <param name="density"></param>
+
         public Habitat(double radius, double temperature, double density)
         {
             CondensationCenter = new Position(0, 0, new V(0, 0));

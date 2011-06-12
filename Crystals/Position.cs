@@ -57,7 +57,14 @@ namespace Crystals
         public static double NextRandomSpeed(double maxSpeed)
         {
             return random.NextDouble() * maxSpeed;
-           }
+        }
+
+        public bool IsNear(Position otherPosition)
+        {
+            double xDiff = Math.Abs(X - otherPosition.X);
+            double yDiff = Math.Abs(Y - otherPosition.Y);
+            return xDiff <= 2.5 && yDiff <= 2.5;
+        }
     
     }
 

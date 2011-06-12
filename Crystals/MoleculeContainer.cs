@@ -16,7 +16,15 @@ namespace Crystals
 
         public Molecule GetMoveInterferer(Molecule molecule)
         {
-            return null;
+            Molecule found = null;
+            foreach (Molecule mol in container)
+            {
+                if (mol != molecule && molecule.IsNear(mol))
+                {
+                    
+                }
+            }
+            return found;
         }
 
         #region ICollection<Molecule> Members
@@ -67,7 +75,7 @@ namespace Crystals
 
         public IEnumerator<Molecule> GetEnumerator()
         {
-            throw new NotImplementedException();
+            return container.GetEnumerator();
         }
 
         #endregion
