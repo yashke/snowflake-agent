@@ -7,26 +7,41 @@ namespace Crystals
 {
     public class MoleculeContainer : ICollection<Molecule>
     {
+        public List<Molecule> container;
+
+        public MoleculeContainer()
+        {
+            container = new List<Molecule>();
+        }
+
         public Molecule GetMoveInterferer(Molecule molecule)
         {
-            throw new NotImplementedException();
+            Molecule found = null;
+            foreach (Molecule mol in container)
+            {
+                if (mol != molecule && molecule.IsNear(mol))
+                {
+                    
+                }
+            }
+            return found;
         }
 
         #region ICollection<Molecule> Members
 
         public void Add(Molecule item)
         {
-            throw new NotImplementedException();
+            container.Add(item);
         }
 
         public void Clear()
         {
-            throw new NotImplementedException();
+            container.Clear();
         }
 
         public bool Contains(Molecule item)
         {
-            throw new NotImplementedException();
+            return container.Contains(item);
         }
 
         public void CopyTo(Molecule[] array, int arrayIndex)
@@ -36,7 +51,7 @@ namespace Crystals
 
         public int Count
         {
-            get { throw new NotImplementedException(); }
+            get { return container.Count; }
         }
 
         public bool IsReadOnly
@@ -46,7 +61,12 @@ namespace Crystals
 
         public bool Remove(Molecule item)
         {
-            throw new NotImplementedException();
+            return container.Remove(item);
+        }
+
+        public void ChangePosition(Molecule molecule, double x, double y)
+        {
+
         }
 
         #endregion
@@ -55,7 +75,7 @@ namespace Crystals
 
         public IEnumerator<Molecule> GetEnumerator()
         {
-            throw new NotImplementedException();
+            return container.GetEnumerator();
         }
 
         #endregion

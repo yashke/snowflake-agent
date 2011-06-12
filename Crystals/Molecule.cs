@@ -8,6 +8,8 @@ namespace Crystals
 {
     public class Molecule
     {
+        List<IPositionChangeListener> positionChangeListeners = new List<IPositionChangeListener>();
+        
         Habitat habitat;
 
         bool BelongsToFlake { get; set; }
@@ -91,6 +93,7 @@ namespace Crystals
         public void Move()
         {
             Position.Move();
+            habitat.ChangeMoleculePosition(this, Position.X, Position.Y);
             habitat.Logger.Log(Position);
         }
 
@@ -131,6 +134,11 @@ namespace Crystals
                     this.Neigbours[bound3] = boundMember3;
                 }
             }
+        }
+
+        public bool IsNear(Molecule otherMolecule)
+        {
+            return Position.IsNear(otherMolecule.Position);
         }
 
     }

@@ -27,6 +27,13 @@ namespace Crystals
 
         public MoleculeContainer Molecules;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="radius">in angstroems (1e(-10)mm)</param>
+        /// <param name="temperature"></param>
+        /// <param name="density"></param>
+
         public Habitat(double radius, double temperature, double density)
         {
             CondensationCenter = new Position(0, 0, new V(0, 0));
@@ -37,7 +44,6 @@ namespace Crystals
             this.Radius = radius;
             Logger = new Logger();
             Molecules = new MoleculeContainer();
-        
         }
 
         public void Start()
@@ -59,6 +65,11 @@ namespace Crystals
         {
            return Molecules.GetMoveInterferer(molecule);
 
+        }
+
+        public void ChangeMoleculePosition(Molecule molecule, double x, double y)
+        {
+            Molecules.ChangePosition(molecule, x, y);
         }
     }
 }
