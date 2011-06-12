@@ -8,6 +8,7 @@ namespace Crystals
 {
     public class Molecule
     {
+        public static double RADIUS = 2.5;
         bool BelongsToFlake { get; set; }
         List<Molecule> Neigbours = new List<Molecule>();
 
@@ -96,9 +97,10 @@ namespace Crystals
             }
         }
 
-        public bool IsNear(Molecule otherMolecule)
+        public bool IsNearConflict(Molecule otherMolecule)
         {
-            return Position.IsNear(otherMolecule.Position);
+            V vector = Position.Sub(otherMolecule.Position);
+            return vector.Speed <= RADIUS * 2;
         }
 
     }

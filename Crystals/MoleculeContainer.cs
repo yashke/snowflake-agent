@@ -19,9 +19,10 @@ namespace Crystals
             Molecule found = null;
             foreach (Molecule mol in container)
             {
-                if (mol != molecule && molecule.IsNear(mol))
+                if (mol != molecule && molecule.IsNearConflict(mol))
                 {
-                    
+                    found = molecule;
+                    break;
                 }
             }
             return found;
