@@ -13,14 +13,36 @@ namespace Crystals
         List<Molecule> Neigbours = new List<Molecule>();
 
         List<IPositionChangeListener> positionChangeListeners = new List<IPositionChangeListener>();
-
+        
         Habitat habitat;
+
+        bool BelongsToFlake { get; set; }
+        Molecule[] Neigbours = new Molecule[3];
+        Molecule LastInCell(int boundNr, bool clockwise, ref int count, ref int nextBoundNr)
+        {
+            count++;
+            nextBoundNr = (boundNr + (clockwise ? 1 : -1) + 3) % 3;
+            if (Neigbours[nextBoundNr] != null)
+                return Neigbours[nextBoundNr].LastInCell(nextBoundNr, clockwise, ref count, ref nextBoundNr);
+            else
+                return this;
+        }
+        int FreeBound()
+        {
+            int b = 0;
+            while (Neigbours[b] != null)
+            {
+                b++;
+                if (b == 2) break;
+            }
+            return b;
+        }
 
         Position Position { get; set; }
         public Thread Thread { get; set; }
 
         /// <summary>
-        /// [m/s]
+        /// [Angstrom / (100 piko sek)]
         /// </summary>
         double Speed
         {
@@ -47,7 +69,6 @@ namespace Crystals
             this.Thread.Join();
         }
 
-
         public void Appear(object position)
         {
             Position = position as Position;
@@ -63,11 +84,13 @@ namespace Crystals
                 if (interferer != null)
                 {
                     this.Bump(interferer);
-                    if(interferer.BelongsToFlake)
+                    if (interferer.BelongsToFlake)
                         TryToAttach(interferer);
+                    Position.X = interferer.Position.X;
+                    Position.Y = interferer.Position.Y;
                 }
                 Move();
-                Thread.Sleep(100);
+                Thread.Join();
             }
         }
 
@@ -89,11 +112,31 @@ namespace Crystals
 
         Random random = new Random();
 
-        public void TryToAttach(Molecule boundMember)
+        public void TryToAttach(Molecule boundMember1)
         {
             if (random.NextDouble() > 0.5)
             {
+                int bound1 = boundMember1.FreeBound();
+                int count2 = 0, bound2 = 0;
+                var boundMember2 = boundMember1.LastInCell(bound1, true, ref count2, ref bound2);
+                int count3 = 0, bound3 = 0;
+                var boundMember3 = boundMember1.LastInCell(bound1, true, ref count3, ref bound3);
 
+                {
+                    this.BelongsToFlake = true;
+                    boundMember1.Neigbours[bound1] = this;
+                    this.Neigbours[bound1] = boundMember1;
+                }
+                if (count2 == 5)
+                {
+                    boundMember2.Neigbours[bound2] = this;
+                    this.Neigbours[bound2] = boundMember2;
+                }
+                if (count3 == 5)
+                {
+                    boundMember3.Neigbours[bound3] = this;
+                    this.Neigbours[bound3] = boundMember3;
+                }
             }
         }
 
