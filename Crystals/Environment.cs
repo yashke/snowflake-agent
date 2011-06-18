@@ -52,12 +52,14 @@ namespace Crystals
             {
                 var molecule = new Molecule(this);
                 Molecules.Add(molecule);
-                molecule.ThreadStart();
             }
 
-            foreach (Molecule molelule in Molecules)
+            while (true)
             {
-                molelule.ThreadJoin();
+                foreach (Molecule molecule in Molecules)
+                {
+                    molecule.Cycle();
+                }
             }
         }
 

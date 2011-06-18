@@ -9,8 +9,6 @@ namespace Crystals
     public class Molecule
     {
         public static double RADIUS = 2.5;
-        bool BelongsToFlake { get; set; }
-        List<Molecule> Neigbours = new List<Molecule>();
 
         List<IPositionChangeListener> positionChangeListeners = new List<IPositionChangeListener>();
         
@@ -55,50 +53,31 @@ namespace Crystals
         public Molecule(Habitat habitat)
         {
             this.habitat = habitat;
-            this.Thread = new Thread(new ParameterizedThreadStart(this.Appear));
-
+            Position = Position.NextRandomPosition(habitat.Radius, this.Speed);
         }
 
-        public void ThreadStart()
+        public void Cycle()
         {
-            this.Thread.Start(Position.NextRandomPosition(habitat.Radius, this.Speed));
-        }
-
-        public void ThreadJoin()
-        {
-            this.Thread.Join();
-        }
-
-        public void Appear(object position)
-        {
-            Position = position as Position;
-            if (position == null)
-                throw new InvalidProgramException(
-                    String.Format(
-                        "Argument was not of type {1}. Passed type was {0}",
-                        position.GetType(), typeof(Position)));
-
-            while (true)
+            Molecule interferer = habitat.GetMoveInterferer(this);
+            if (interferer != null)
             {
-                Molecule interferer = habitat.GetMoveInterferer(this);
-                if (interferer != null)
-                {
-                    this.Bump(interferer);
-                    if (interferer.BelongsToFlake)
-                        TryToAttach(interferer);
-                    Position.X = interferer.Position.X;
-                    Position.Y = interferer.Position.Y;
-                }
-                Move();
-                Thread.Join();
+                this.Bump(interferer);
+                if (interferer.BelongsToFlake)
+                    TryToAttach(interferer);
+                Position.X = interferer.Position.X;
+                Position.Y = interferer.Position.Y;
             }
+            Move();
         }
 
         public void Move()
         {
-            Position.Move();
-            habitat.ChangeMoleculePosition(this, Position.X, Position.Y);
-            habitat.Logger.Log(Position);
+            if (!BelongsToFlake)
+            {
+                Position.Move();
+                habitat.ChangeMoleculePosition(this, Position.X, Position.Y);
+                habitat.Logger.Log(Position);
+            }
         }
 
         public void Bump(Molecule other)
@@ -122,11 +101,10 @@ namespace Crystals
                 int count3 = 0, bound3 = 0;
                 var boundMember3 = boundMember1.LastInCell(bound1, true, ref count3, ref bound3);
 
-                {
-                    this.BelongsToFlake = true;
-                    boundMember1.Neigbours[bound1] = this;
-                    this.Neigbours[bound1] = boundMember1;
-                }
+                this.BelongsToFlake = true;
+                boundMember1.Neigbours[bound1] = this;
+                this.Neigbours[bound1] = boundMember1;
+
                 if (count2 == 5)
                 {
                     boundMember2.Neigbours[bound2] = this;
