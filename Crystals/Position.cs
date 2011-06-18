@@ -43,14 +43,19 @@ namespace Crystals
         public int TetrahedronPart(Position zero)
         {
             double angle = Angle(zero);
-            return (int) (angle / (Math.PI / 3));
+            return (int)(angle / (Math.PI / 3));
         }
 
+        /// <summary>
+        /// Position on first border of tetrahedron part in counterclockwise order.
+        /// </summary>
+        /// <param name="r">length of tetrahedron site</param>
+        /// <param name="part">id of tetrahedron part <seealso cref="Position.TetrahedronPart"/></param>
+        /// <returns></returns>
         public Position PointOnBorderOfTetrahedronPart(double r, int part)
         {
-            return GetPointOfAngle(r, part * (Math.PI/3));
+            return PointOfAngle(r, part * (Math.PI / 3));
         }
-
 
         /// <summary>
         /// Pod  jakim jest kątem do dodaniej osi OX
@@ -86,9 +91,9 @@ namespace Crystals
         /// <param name="r"></param>
         /// <param name="angle"></param>
         /// <returns></returns>
-        public Position GetPointOfAngle(double r, double angle)
+        public Position PointOfAngle(double r, double angle)
         {
-            return new Position(X + Math.Cos(r), Y + Math.Sin(r), null);
+            return new Position(X + r * Math.Cos(angle), Y + r * Math.Sin(angle), null);
         }
 
         public void Move()
@@ -116,8 +121,8 @@ namespace Crystals
         {
             var alpha = 2 * Math.PI * random.NextDouble();
 
-            var x = Math.Cos(alpha);
-            var y = Math.Sin(alpha);
+            var x = radius * Math.Cos(alpha);
+            var y = radius * Math.Sin(alpha);
 
             return new Position(x, y, Position.NextRandomDirection(speed));
         }
@@ -136,4 +141,4 @@ namespace Crystals
         }
     }
 
- }
+}
