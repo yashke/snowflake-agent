@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading;
+using System.Drawing;
 
 namespace Crystals
 {
@@ -16,6 +17,8 @@ namespace Crystals
 
         bool BelongsToFlake { get; set; }
         Molecule[] Neigbours = new Molecule[3];
+        List<MoleculeAttachedListener> MoleculeAttachedListeners = new List<MoleculeAttachedListener>();
+
         Molecule LastInCell(int boundNr, bool clockwise, ref int count, ref int nextBoundNr)
         {
             count++;
@@ -116,6 +119,19 @@ namespace Crystals
                     this.Neigbours[bound3] = boundMember3;
                 }
             }
+        }
+
+        public void FireMoleculeAttached(Point attached, List<Point> linked)
+        {
+            foreach (MoleculeAttachedListener listener in MoleculeAttachedListeners)
+            {
+                listener.MoleculeAttached(attached, linked);
+            }
+        }
+
+        public void AddMoleculeAttachedListener(MoleculeAttachedListener listener)
+        {
+            MoleculeAttachedListeners.Add(listener);
         }
 
         public bool IsNearConflict(Molecule otherMolecule)

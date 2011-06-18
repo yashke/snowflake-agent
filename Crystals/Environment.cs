@@ -25,6 +25,8 @@ namespace Crystals
         public Position CondensationCenter { get; private set; }
         public Double Radius { get; private set; }
 
+        public List<NewBindingListener> NewBindingListeners;
+
         public MoleculeContainer Molecules;
 
         /// <summary>
@@ -43,7 +45,8 @@ namespace Crystals
             this.Density_Current = density;
             this.Radius = radius;
             Logger = new Logger();
-            Molecules = new MoleculeContainer();
+            Molecules = new MoleculeContainer(this);
+            NewBindingListeners = new List<NewBindingListener>();
         }
 
         public void Start()
@@ -72,6 +75,19 @@ namespace Crystals
         public void ChangeMoleculePosition(Molecule molecule, double x, double y)
         {
             Molecules.ChangePosition(molecule, x, y);
+        }
+
+        public void AddNewBindingListener(NewBindingListener listener)
+        {
+            NewBindingListeners.Add(listener);
+        }
+
+        public void FireNewBinding()
+        {
+            foreach (NewBindingListener listener in NewBindingListeners)
+            {
+                listener.NewBinding();
+            }
         }
     }
 }
