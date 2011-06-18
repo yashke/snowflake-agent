@@ -15,6 +15,82 @@ namespace Crystals
         {
             X = x; Y = y; Direction = direction;
         }
+
+        /// <summary>
+        /// Do której ćwiartki układu współrzędych należy punkt numerowane 1 - 4
+        /// </summary>
+        /// <param name="zero">Początek układu współrzędnych</param>
+        /// <returns></returns>
+        public int Quadrant(Position zero)
+        {
+            if (X - zero.X >= 0)
+                if (Y - zero.Y >= 0)
+                    return 1;
+                else
+                    return 4;
+            else
+                if (Y - zero.Y >= 0)
+                    return 2;
+                else
+                    return 3;
+        }
+
+        /// <summary>
+        /// Do której szóstki układu współrzędych należy punkt numerowane 0 - 5
+        /// </summary>
+        /// <param name="zero">Początek układu współrzędnych</param>
+        /// <returns></returns>
+        public int TetrahedronPart(Position zero)
+        {
+            double angle = Angle(zero);
+            return (int) (angle / (Math.PI / 3));
+        }
+
+        public Position PointOnBorderOfTetrahedronPart(double r, int part)
+        {
+            return GetPointOfAngle(r, part * (Math.PI/3));
+        }
+
+
+        /// <summary>
+        /// Pod  jakim jest kątem do dodaniej osi OX
+        /// </summary>
+        /// <param name="zero">Początek układu współrzędnych</param>
+        /// <returns></returns>
+        public double Angle(Position zero)
+        {
+            double angle;
+            double x_rel = X - zero.X;
+            double y_rel = Y - zero.Y;
+            if (x_rel == 0)
+                angle = y_rel > 0 ? Math.PI / 2 : 3 * Math.PI / 2;
+            else
+            {
+                switch (Quadrant(zero))
+                {
+                    case 1: angle = Math.Atan(y_rel / x_rel);
+                        break;
+                    case 4: angle = Math.Atan(y_rel / x_rel) + 2 * Math.PI;
+                        break;
+                    default: angle = Math.Atan(y_rel / x_rel) + Math.PI;
+                        break;
+                }
+            }
+            angle = (angle + 2 * Math.PI) % (Math.PI * 2);
+            return angle;
+        }
+
+        /// <summary>
+        /// Oblicz punkt w odległości r od środka układu z kątem angle, jeśli nasz punkt jest środkiem
+        /// </summary>
+        /// <param name="r"></param>
+        /// <param name="angle"></param>
+        /// <returns></returns>
+        public Position GetPointOfAngle(double r, double angle)
+        {
+            return new Position(X + Math.Cos(r), Y + Math.Sin(r), null);
+        }
+
         public void Move()
         {
             lock (this)
