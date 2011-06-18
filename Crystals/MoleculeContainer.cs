@@ -2,16 +2,34 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Drawing;
 
 namespace Crystals
 {
     public class MoleculeContainer : ICollection<Molecule>
     {
-        public List<Molecule> container;
+        class AttachingListener : MoleculeAttachedListener
+        {
+            private Habitat habitat;
 
-        public MoleculeContainer()
+            public AttachingListener(Habitat env)
+            {
+                habitat = env;
+            }
+
+            public void MoleculeAttached(Point attached, List<Point> linked)
+            {
+                habitat.FireNewBinding();
+            }
+        }
+
+        public List<Molecule> container;
+        public Habitat Habitat;
+
+        public MoleculeContainer(Habitat habitat)
         {
             container = new List<Molecule>();
+            Habitat = habitat;
         }
 
         public Molecule GetMoveInterferer(Molecule molecule)
@@ -33,6 +51,7 @@ namespace Crystals
         public void Add(Molecule item)
         {
             container.Add(item);
+            item.AddMoleculeAttachedListener(new AttachingListener(Habitat));
         }
 
         public void Clear()
