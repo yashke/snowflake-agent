@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assert.cs" />
+    <Compile Include="IntersectionsTests.cs" />
     <Compile Include="MoleculeTests.cs" />
     <Compile Include="PositionTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
