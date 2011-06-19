@@ -11,6 +11,12 @@ namespace Crystals
         public double X, Y;
         public V Direction { get; set; }
 
+        public Position(double x, double y)
+        {
+            X = x; Y = y; Direction = null;
+        }
+
+
         public Position(double x, double y, V direction)
         {
             X = x; Y = y; Direction = direction;

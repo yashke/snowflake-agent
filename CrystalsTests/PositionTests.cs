@@ -52,17 +52,13 @@ namespace CrystalsTests
 
             var p_expected = new Position(zero.X - r, zero.Y, null);
 
-            AssertExtensions.AreAlmostEqual(p_expected.X, p.X);
-
-            AssertExtensions.AreAlmostEqual(p_expected.Y, p.Y);
+            AssertExtensions.AreAlmostEqual(p_expected, p);
 
             p = zero.PointOnBorderOfTetrahedronPart(r, 5);
 
             p_expected = new Position(zero.X + r / 2, zero.Y - r * Math.Sqrt(3) / 2, null);
 
-            AssertExtensions.AreAlmostEqual(p_expected.X, p.X);
-
-            AssertExtensions.AreAlmostEqual(p_expected.Y, p.Y);
+            AssertExtensions.AreAlmostEqual(p_expected, p);
 
         }
     }
