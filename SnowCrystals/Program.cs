@@ -24,13 +24,13 @@ namespace SnowCrystals
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             env = new Habitat( 1, 0, 0);
-            growthSimulation = new GrowthSimulation();
+            growthSimulation = new GrowthSimulation(env.Presenter);
             densityBarController = new DensityBarController(growthSimulation, env);
             densityBarController.BindListeners();
             speedBarController = new SpeedBarController(growthSimulation, env);
             speedBarController.BindListeners();
             mainPanelController = new MainPanelController(growthSimulation, env);
-            env.Start();
+            env.ThreadStart();
             Application.Run(growthSimulation);
         }
     }

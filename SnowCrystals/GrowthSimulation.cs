@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using Crystals;
 
 namespace SnowCrystals
 {
@@ -18,6 +19,7 @@ namespace SnowCrystals
 
         Color MainColor = Color.Black;
         Brush MainBrush = Brushes.Black;
+        private HabitatPresenter habitatPresenter;
 
         Point Center { 
             get { 
@@ -25,10 +27,11 @@ namespace SnowCrystals
             }
         }
 
-        public GrowthSimulation()
+        public GrowthSimulation(HabitatPresenter envPresenter)
         {
             InitializeComponent();
             pen = new Pen(MainColor);
+            habitatPresenter = envPresenter;
         }
 
         public void AddDensityChangeListener(DensityChangeListener listener)
@@ -76,7 +79,10 @@ namespace SnowCrystals
 
         private void drawMolecules(Graphics graphics)
         {
-
+            foreach (MoleculePresenter mPresenter in habitatPresenter.FlakeMoleculePresenters())
+            {
+                mPresenter.Draw(pen, graphics);
+            }
         }
 
         private void mainPanel_Paint(object sender, PaintEventArgs e)

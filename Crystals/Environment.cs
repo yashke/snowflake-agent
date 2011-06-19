@@ -25,9 +25,24 @@ namespace Crystals
         public Position CondensationCenter { get; private set; }
         public Double Radius { get; private set; }
 
+        private HabitatPresenter presenter;
+        public HabitatPresenter Presenter
+        {
+            get
+            {
+                if (presenter == null)
+                {
+                    presenter = new HabitatPresenter(this);
+                }
+                return presenter;
+            }
+        }
+
         public List<NewBindingListener> NewBindingListeners;
 
         public MoleculeContainer Molecules;
+
+        Thread Thread;
 
         /// <summary>
         /// 
@@ -47,6 +62,13 @@ namespace Crystals
             Logger = new Logger();
             Molecules = new MoleculeContainer(this);
             NewBindingListeners = new List<NewBindingListener>();
+
+            Thread = new Thread(new ThreadStart(this.Start));
+        }
+
+        public void ThreadStart()
+        {
+            Thread.Start();
         }
 
         public void Start()
@@ -63,6 +85,7 @@ namespace Crystals
                 {
                     molecule.Cycle();
                 }
+                Thread.Sleep(100);
             }
         }
 
@@ -70,11 +93,6 @@ namespace Crystals
         {
            return Molecules.GetMoveInterferer(molecule);
 
-        }
-
-        public void ChangeMoleculePosition(Molecule molecule, double x, double y)
-        {
-            Molecules.ChangePosition(molecule, x, y);
         }
 
         public void AddNewBindingListener(NewBindingListener listener)
@@ -88,6 +106,11 @@ namespace Crystals
             {
                 listener.NewBinding();
             }
+        }
+
+        public List<Molecule> FlakeMolecules()
+        {
+            return Molecules.FlakeMolecules();
         }
     }
 }

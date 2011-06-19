@@ -22,11 +22,25 @@ namespace Crystals
         
         Habitat habitat;
 
-        bool BelongsToFlake { get; set; }
+        public bool BelongsToFlake { get; set; }
         BoundType BoundType { get; set; }
 
-        Molecule[] Neigbours = new Molecule[3];
+        public Molecule[] Neigbours = new Molecule[3];
         List<MoleculeAttachedListener> MoleculeAttachedListeners = new List<MoleculeAttachedListener>();
+
+        MoleculePresenter presenter;
+
+        public MoleculePresenter Presenter
+        {
+            get
+            {
+                if (presenter == null)
+                {
+                    presenter = new MoleculePresenter(this);
+                }
+                return presenter;
+            }
+        }
 
         Molecule LastInCell(int boundNr, bool clockwise, ref int count, ref int nextBoundNr)
         {
@@ -54,7 +68,7 @@ namespace Crystals
                 boundNr * 2 + 3);
         }
 
-        Position Position { get; set; }
+        public Position Position { get; set; }
    
         /// <summary>
         /// [Angstrom / (100 piko sek)]
@@ -92,7 +106,6 @@ namespace Crystals
             if (!BelongsToFlake)
             {
                 Position.Move();
-                habitat.ChangeMoleculePosition(this, Position.X, Position.Y);
                 habitat.Logger.Log(Position);
             }
         }
