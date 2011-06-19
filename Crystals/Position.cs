@@ -14,6 +14,14 @@ namespace Crystals
 
         public double HabitatRadius { get { return Molecule.HabitatRadius; } }
 
+        public Position(double x, double y)
+        {
+            X = x;
+            Y = y;
+            Direction = null;
+            Molecule = null;
+        }
+
         public Position(double x, double y, V direction, Molecule molecule)
         {
             X = x;
