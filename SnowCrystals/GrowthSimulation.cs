@@ -14,6 +14,7 @@ namespace SnowCrystals
     {
         private List<DensityChangeListener> densityChangeListeners = new List<DensityChangeListener>();
         private List<SpeedChangeListener> speedChangeListeners = new List<SpeedChangeListener>();
+        private List<ICloseListener> closeListeners = new List<ICloseListener>();
 
         Pen pen;
 
@@ -60,6 +61,24 @@ namespace SnowCrystals
             }
         }
 
+        public void AddCloseListener(ICloseListener listener)
+        {
+            closeListeners.Add(listener);
+        }
+
+        public void FireCloseProgram()
+        {
+            foreach (ICloseListener listener in closeListeners)
+            {
+                listener.ProgramClosed();
+            }
+        }
+
+        public void StatusMessage(String message)
+        {
+            EventLabel.Text = message;
+        }
+
         private void densityBar_ValueChanged(object sender, EventArgs e)
         {
             currentDensityTB.Text = densityBar.Value.ToString();
@@ -90,6 +109,11 @@ namespace SnowCrystals
             Graphics graphics = e.Graphics;
             drawCore(graphics);
             drawMolecules(graphics);
+        }
+
+        private void GrowthSimulation_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            FireCloseProgram();
         }
     }
 }

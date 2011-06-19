@@ -25,6 +25,8 @@ namespace Crystals
         public Position CondensationCenter { get; private set; }
         public Double Radius { get; private set; }
 
+        public bool Opened = true;
+
         private HabitatPresenter presenter;
         public HabitatPresenter Presenter
         {
@@ -71,6 +73,11 @@ namespace Crystals
             Thread.Start();
         }
 
+        public void ThreadStop()
+        {
+            Opened = false;
+        }
+
         public void Start()
         {
             for (int i = 0; i < MoleculeCount; i++)
@@ -79,7 +86,7 @@ namespace Crystals
                 Molecules.Add(molecule);
             }
 
-            while (true)
+            while (Opened)
             {
                 foreach (Molecule molecule in Molecules)
                 {
