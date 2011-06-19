@@ -48,6 +48,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ICloseListener.cs" />
     <Compile Include="MainPanelController.cs" />
     <Compile Include="SpeedBarController.cs" />
     <Compile Include="DensityBarController.cs" />

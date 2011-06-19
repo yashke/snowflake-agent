@@ -84,9 +84,17 @@ namespace Crystals
             return container.Remove(item);
         }
 
-        public void ChangePosition(Molecule molecule, double x, double y)
+        public List<Molecule> FlakeMolecules()
         {
-
+            List<Molecule> molecules = new List<Molecule>();
+            foreach (Molecule molecule in container)
+            {
+                if (molecule.BelongsToFlake)
+                {
+                    molecules.Add(molecule);
+                }
+            }
+            return molecules;
         }
 
         #endregion

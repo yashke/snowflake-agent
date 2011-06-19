@@ -37,6 +37,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.currentSpeedTB = new System.Windows.Forms.TextBox();
             this.mainPanel = new System.Windows.Forms.PictureBox();
+            this.EventLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.densityBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.speedBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mainPanel)).BeginInit();
@@ -121,11 +122,20 @@
             this.mainPanel.TabStop = false;
             this.mainPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.mainPanel_Paint);
             // 
+            // EventLabel
+            // 
+            this.EventLabel.AutoSize = true;
+            this.EventLabel.Location = new System.Drawing.Point(500, 491);
+            this.EventLabel.Name = "EventLabel";
+            this.EventLabel.Size = new System.Drawing.Size(0, 13);
+            this.EventLabel.TabIndex = 9;
+            // 
             // GrowthSimulation
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(592, 519);
+            this.Controls.Add(this.EventLabel);
             this.Controls.Add(this.mainPanel);
             this.Controls.Add(this.currentSpeedTB);
             this.Controls.Add(this.label2);
@@ -137,6 +147,7 @@
             this.Controls.Add(this.densityBar);
             this.Name = "GrowthSimulation";
             this.Text = "GrowthSimulation";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.GrowthSimulation_FormClosed);
             ((System.ComponentModel.ISupportInitialize)(this.densityBar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.speedBar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.mainPanel)).EndInit();
@@ -156,5 +167,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox currentSpeedTB;
         private System.Windows.Forms.PictureBox mainPanel;
+        private System.Windows.Forms.Label EventLabel;
     }
 }

@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using Crystals;
 
 namespace SnowCrystals
 {
@@ -13,11 +14,13 @@ namespace SnowCrystals
     {
         private List<DensityChangeListener> densityChangeListeners = new List<DensityChangeListener>();
         private List<SpeedChangeListener> speedChangeListeners = new List<SpeedChangeListener>();
+        private List<ICloseListener> closeListeners = new List<ICloseListener>();
 
         Pen pen;
 
         Color MainColor = Color.Black;
         Brush MainBrush = Brushes.Black;
+        private HabitatPresenter habitatPresenter;
 
         Point Center { 
             get { 
@@ -25,10 +28,11 @@ namespace SnowCrystals
             }
         }
 
-        public GrowthSimulation()
+        public GrowthSimulation(HabitatPresenter envPresenter)
         {
             InitializeComponent();
             pen = new Pen(MainColor);
+            habitatPresenter = envPresenter;
         }
 
         public void AddDensityChangeListener(DensityChangeListener listener)
@@ -57,6 +61,24 @@ namespace SnowCrystals
             }
         }
 
+        public void AddCloseListener(ICloseListener listener)
+        {
+            closeListeners.Add(listener);
+        }
+
+        public void FireCloseProgram()
+        {
+            foreach (ICloseListener listener in closeListeners)
+            {
+                listener.ProgramClosed();
+            }
+        }
+
+        public void StatusMessage(String message)
+        {
+            EventLabel.Text = message;
+        }
+
         private void densityBar_ValueChanged(object sender, EventArgs e)
         {
             currentDensityTB.Text = densityBar.Value.ToString();
@@ -76,7 +98,10 @@ namespace SnowCrystals
 
         private void drawMolecules(Graphics graphics)
         {
-
+            foreach (MoleculePresenter mPresenter in habitatPresenter.FlakeMoleculePresenters())
+            {
+                mPresenter.Draw(pen, graphics);
+            }
         }
 
         private void mainPanel_Paint(object sender, PaintEventArgs e)
@@ -84,6 +109,11 @@ namespace SnowCrystals
             Graphics graphics = e.Graphics;
             drawCore(graphics);
             drawMolecules(graphics);
+        }
+
+        private void GrowthSimulation_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            FireCloseProgram();
         }
     }
 }

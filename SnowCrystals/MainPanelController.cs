@@ -23,6 +23,22 @@ namespace SnowCrystals
             public void NewBinding()
             {
                 view.Invalidate();
+                view.StatusMessage("New Binding");
+            }
+        }
+
+        class CloseListener : ICloseListener
+        {
+            Habitat habitat;
+
+            public CloseListener(Habitat env)
+            {
+                habitat = env;
+            }
+
+            public void ProgramClosed()
+            {
+                habitat.ThreadStop();
             }
         }
 
@@ -31,6 +47,8 @@ namespace SnowCrystals
             view = v;
             environment = env;
             environment.AddNewBindingListener(new BindingListener(view));
+            view.AddCloseListener(new CloseListener(env));
+            view.StatusMessage("Started");
         }
     }
 }

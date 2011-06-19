@@ -46,12 +46,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="HabitatPresenter.cs" />
     <Compile Include="IPositionChangeListener.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="Environment.cs" />
     <Compile Include="Molecule.cs" />
     <Compile Include="MoleculeAttachedListener.cs" />
     <Compile Include="MoleculeContainer.cs" />
+    <Compile Include="MoleculePresenter.cs" />
     <Compile Include="NewBindingListener.cs" />
     <Compile Include="Position.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
