@@ -13,8 +13,8 @@ namespace CrystalsTests
         [Test]
         public void TetrahedronPartTest()
         {
-            Position zero = new Position(3.45, 7.93, null);
-            Position p = new Position(3.45, 10, null);
+            Position zero = new Position(3.45, 7.93, null, null);
+            Position p = new Position(3.45, 10, null, null);
 
             Assert.AreEqual(1, p.TetrahedronPart(zero));
 
@@ -34,7 +34,7 @@ namespace CrystalsTests
         [Test]
         public void PointOfAngleTest()
         {
-            var zero = new Position(0, 0, null);
+            var zero = new Position(0, 0, null, null);
             var p = zero.PointOfAngle(Molecule.TETRAHEDRON_SITE, Math.PI * 5 / 6);
             Assert.Less(p.X, zero.X);
 
@@ -44,13 +44,13 @@ namespace CrystalsTests
         [Test]
         public void PointOnBorderOfTetrahedronPartTest()
         {
-            Position zero = new Position(3.45, 7.93, null);
+            Position zero = new Position(3.45, 7.93, null, null);
 
             Double r = 10;
 
             var p = zero.PointOnBorderOfTetrahedronPart(r, 3);
 
-            var p_expected = new Position(zero.X - r, zero.Y, null);
+            var p_expected = new Position(zero.X - r, zero.Y, null, null);
 
             AssertExtensions.AreAlmostEqual(p_expected.X, p.X);
 
@@ -58,7 +58,7 @@ namespace CrystalsTests
 
             p = zero.PointOnBorderOfTetrahedronPart(r, 5);
 
-            p_expected = new Position(zero.X + r / 2, zero.Y - r * Math.Sqrt(3) / 2, null);
+            p_expected = new Position(zero.X + r / 2, zero.Y - r * Math.Sqrt(3) / 2, null, null);
 
             AssertExtensions.AreAlmostEqual(p_expected.X, p.X);
 

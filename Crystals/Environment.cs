@@ -22,7 +22,7 @@ namespace Crystals
         public Double Density_Current { get; private set; }
         public UInt32 MoleculeCount_Current { get { return (UInt32)(Density_Current * Volume); } }
 
-        public Position CondensationCenter { get; private set; }
+        public Molecule CondensationCenter { get; private set; }
         public Double Radius { get; private set; }
 
         public bool Opened = true;
@@ -55,7 +55,7 @@ namespace Crystals
 
         public Habitat(double radius, double temperature, double density)
         {
-            CondensationCenter = new Position(0, 0, new V(0, 0));
+            CondensationCenter = new Molecule(this, true);
             this.Temperature = temperature;
             this.Density = density;
             this.Volume = Math.PI * radius * radius;
