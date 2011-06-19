@@ -9,7 +9,7 @@ namespace Crystals
 {
     public enum BoundType
     {
-        I, 
+        I,
         II
     }
 
@@ -19,11 +19,11 @@ namespace Crystals
         public static double TETRAHEDRON_SITE = 3.9;
 
         List<IPositionChangeListener> positionChangeListeners = new List<IPositionChangeListener>();
-        
+
         Habitat habitat;
 
         public bool BelongsToFlake { get; set; }
-        BoundType BoundType { get; set; }
+        public BoundType BoundType { get; set; }
 
         public Molecule[] Neigbours = new Molecule[3];
         List<MoleculeAttachedListener> MoleculeAttachedListeners = new List<MoleculeAttachedListener>();
@@ -51,16 +51,25 @@ namespace Crystals
             else
                 return this;
         }
-        int? FreeBound(Molecule other)
+        public int? FreeBound(Molecule other)
         {
             int tetrahedronPart = other.Position.TetrahedronPart(Position);
 
-            int b = BoundType == BoundType.I ? ( tetrahedronPart+ 1 )%6 /2 :
+            int b = BoundType == BoundType.I ? (tetrahedronPart + 1) % 6 / 2 :
                 (tetrahedronPart + 4) % 6 / 2;
 
             return Neigbours[b] == null ? (int?)b : null;
         }
-        Position GetBoundPosition(int boundNr)
+        public int? GetBoundNr(Molecule other)
+        {
+            for (int b = 0; b < Neigbours.Length; b++)
+            {
+                if (Neigbours[b] == other)
+                    return b;
+            }
+            return null;
+        }
+        public Position BoundPosition(int boundNr)
         {
             return Position.PointOnBorderOfTetrahedronPart(
                 TETRAHEDRON_SITE,
@@ -69,7 +78,7 @@ namespace Crystals
         }
 
         public Position Position { get; set; }
-   
+
         /// <summary>
         /// [Angstrom / (100 piko sek)]
         /// </summary>
@@ -125,29 +134,33 @@ namespace Crystals
         {
             if (random.NextDouble() > 0.5)
             {
-                int? bound1 = boundMember1.FreeBound(this);
-                if (bound1 != null)
-                {
-                    int count2 = 0, bound2 = 0;
-                    var boundMember2 = boundMember1.LastInCell((int)bound1, true, ref count2, ref bound2);
-                    int count3 = 0, bound3 = 0;
-                    var boundMember3 = boundMember1.LastInCell((int)bound1, true, ref count3, ref bound3);
+                TryToAttachDefinitely(boundMember1);
+            }
+        }
+        public void TryToAttachDefinitely(Molecule boundMember1)
+        {
+            int? bound1 = boundMember1.FreeBound(this);
+            if (bound1 != null)
+            {
+                int count2 = 0, bound2 = 0;
+                var boundMember2 = boundMember1.LastInCell((int)bound1, true, ref count2, ref bound2);
+                int count3 = 0, bound3 = 0;
+                var boundMember3 = boundMember1.LastInCell((int)bound1, true, ref count3, ref bound3);
 
-                    this.BelongsToFlake = true;
-                    boundMember1.Neigbours[(int)bound1] = this;
-                    this.Neigbours[(int)bound1] = boundMember1;
-                    this.BoundType = boundMember1.BoundType == BoundType.I ? BoundType.II : BoundType.I;
-                    this.Position = boundMember1.GetBoundPosition((int)bound1);
-                    if (count2 == 5)
-                    {
-                        boundMember2.Neigbours[bound2] = this;
-                        this.Neigbours[bound2] = boundMember2;
-                    }
-                    if (count3 == 5)
-                    {
-                        boundMember3.Neigbours[bound3] = this;
-                        this.Neigbours[bound3] = boundMember3;
-                    }
+                this.BelongsToFlake = true;
+                boundMember1.Neigbours[(int)bound1] = this;
+                this.Neigbours[(int)bound1] = boundMember1;
+                this.BoundType = boundMember1.BoundType == BoundType.I ? BoundType.II : BoundType.I;
+                this.Position = boundMember1.BoundPosition((int)bound1);
+                if (count2 == 5)
+                {
+                    boundMember2.Neigbours[bound2] = this;
+                    this.Neigbours[bound2] = boundMember2;
+                }
+                if (count3 == 5)
+                {
+                    boundMember3.Neigbours[bound3] = this;
+                    this.Neigbours[bound3] = boundMember3;
                 }
             }
         }
