@@ -26,6 +26,7 @@ namespace Crystals
         public BoundType BoundType { get; set; }
 
         public double HabitatRadius { get { return habitat.Radius; } }
+        public Molecule HabitatCondensationCenter { get { return habitat.CondensationCenter; } }
 
         public Molecule[] Neigbours = new Molecule[3];
         List<MoleculeAttachedListener> MoleculeAttachedListeners = new List<MoleculeAttachedListener>();

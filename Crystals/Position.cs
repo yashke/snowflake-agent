@@ -13,6 +13,7 @@ namespace Crystals
         public Molecule Molecule;
 
         public double HabitatRadius { get { return Molecule.HabitatRadius; } }
+        public Molecule HabitatCondensationCenter { get { return Molecule.HabitatCondensationCenter; } }
 
         public Position(double x, double y)
         {
@@ -125,14 +126,30 @@ namespace Crystals
                 }
                 else
                 {
-                    Bump(Direction.X, Direction.Y);
+                    BumpWalls();
                 }
             }
         }
 
-        public void Bump(double deltaX, double deltaY)
+        public void BumpWalls()
         {
-            
+            V d = new V(Direction.X, Direction.Y);
+            Position expectedPosition = new Position(this.X + Direction.X, this.Y + Direction.Y);
+            while (d.Speed > 0)
+            {
+                List<Position> crossing = Intersections.CircleAndSegmentIntersections(this, expectedPosition, HabitatRadius, HabitatCondensationCenter.Position);
+                Position crossPosition = crossing.First<Position>();
+                double alpha = Math.PI * random.NextDouble() - Math.PI / 2;
+                double angle = HabitatCondensationCenter.Position.Angle(crossPosition);
+                double dMoved = crossPosition.Sub(this).Speed;
+                expectedPosition = crossPosition.PointOfAngle(dMoved, angle - alpha);
+                this.X = crossPosition.X;
+                this.Y = crossPosition.Y;
+                
+            }
+            this.X = expectedPosition.X;
+            this.Y = expectedPosition.Y;
+
         }
 
         public V Sub(Position poz)

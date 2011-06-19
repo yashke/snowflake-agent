@@ -31,11 +31,6 @@ namespace Crystals
             X = x; Y = y;
         }
 
-        public void Bump(V normal)
-        {
-
-        }
-
         public override string ToString()
         {
             return String.Format("<{0},{1},{2}>", X, Y);
