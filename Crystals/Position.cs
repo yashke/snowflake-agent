@@ -10,16 +10,16 @@ namespace Crystals
     {
         public double X, Y;
         public V Direction { get; set; }
+        public Molecule Molecule;
 
-        public Position(double x, double y)
+        public double HabitatRadius { get { return Molecule.HabitatRadius; } }
+
+        public Position(double x, double y, V direction, Molecule molecule)
         {
-            X = x; Y = y; Direction = null;
-        }
-
-
-        public Position(double x, double y, V direction)
-        {
-            X = x; Y = y; Direction = direction;
+            X = x;
+            Y = y;
+            Direction = direction;
+            Molecule = molecule;
         }
 
         /// <summary>
@@ -99,16 +99,32 @@ namespace Crystals
         /// <returns></returns>
         public Position PointOfAngle(double r, double angle)
         {
-            return new Position(X + r * Math.Cos(angle), Y + r * Math.Sin(angle), null);
+            return new Position(X + r * Math.Cos(angle), Y + r * Math.Sin(angle), null, Molecule);
         }
 
         public void Move()
         {
+            double x, y;
+
             lock (this)
             {
-                this.X += Direction.X;
-                this.Y += Direction.Y;
+                x = this.X + Direction.X;
+                y = this.Y + Direction.Y;
+                if (Math.Pow(x, 2) + Math.Pow(y, 2) < Math.Pow(HabitatRadius, 2))
+                {
+                    this.X += Direction.X;
+                    this.Y += Direction.Y;
+                }
+                else
+                {
+                    Bump(Direction.X, Direction.Y);
+                }
             }
+        }
+
+        public void Bump(double deltaX, double deltaY)
+        {
+            
         }
 
         public V Sub(Position poz)
@@ -123,14 +139,14 @@ namespace Crystals
 
         public static Random random = new Random();
 
-        public static Position NextRandomPosition(double radius, double speed)
+        public static Position NextRandomPosition(double radius, double speed, Molecule molecule)
         {
             var alpha = 2 * Math.PI * random.NextDouble();
 
             var x = radius * Math.Cos(alpha);
             var y = radius * Math.Sin(alpha);
 
-            return new Position(x, y, Position.NextRandomDirection(speed));
+            return new Position(x, y, Position.NextRandomDirection(speed), molecule);
         }
 
         public static V NextRandomDirection(double speed)

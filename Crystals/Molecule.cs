@@ -25,6 +25,8 @@ namespace Crystals
         public bool BelongsToFlake { get; set; }
         public BoundType BoundType { get; set; }
 
+        public double HabitatRadius { get { return habitat.Radius; } }
+
         public Molecule[] Neigbours = new Molecule[3];
         List<MoleculeAttachedListener> MoleculeAttachedListeners = new List<MoleculeAttachedListener>();
 
@@ -92,8 +94,26 @@ namespace Crystals
 
         public Molecule(Habitat habitat)
         {
+            Init(habitat, false);
+        }
+
+        public Molecule(Habitat habitat, bool isCondensationCenter)
+        {
+            Init(habitat, isCondensationCenter);
+        }
+
+        public void Init(Habitat habitat, bool isCondensationCenter)
+        {
             this.habitat = habitat;
-            Position = Position.NextRandomPosition(habitat.Radius, this.Speed);
+            if (isCondensationCenter)
+            {
+                BelongsToFlake = true;
+                Position = new Position(0, 0, null, this);
+            }
+            else
+            {
+                Position = Position.NextRandomPosition(HabitatRadius, this.Speed, this);
+            }
         }
 
         public void Cycle()
