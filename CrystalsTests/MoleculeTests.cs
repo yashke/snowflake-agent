@@ -10,53 +10,123 @@ namespace CrystalsTests
     [TestFixture]
     class MoleculeTests
     {
-        Molecule[] molecules;
+        Molecule mZero;
+        Habitat habitat;
 
-        [TestFixtureSetUp]
+        [SetUp]
         public void SetUp()
         {
-            molecules = new Molecule[2];
-            
-            var habitat = new Habitat(1, 1, 1);
+            habitat = new Habitat(1, 1, 1);
 
-            molecules[0] = new Molecule(habitat);
-            molecules[0].Position.X = 0;
-            molecules[0].Position.Y = 0;
-            molecules[0].BelongsToFlake = true;
-            molecules[0].BoundType = BoundType.I;
-
-            molecules[1] = new Molecule(habitat);
-            molecules[1].Position = molecules[0].Position.PointOfAngle(Molecule.TETRAHEDRON_SITE, Math.PI * 5 / 6);
+            mZero = new Molecule(habitat);
+            mZero.Position.X = 0;
+            mZero.Position.Y = 0;
+            mZero.BelongsToFlake = true;
+            mZero.BoundType = BoundType.I;
 
         }
 
         [Test]
         public void FreeBoundTest()
         {
-            Assert.AreEqual(1, molecules[0].FreeBound(molecules[1]));
+            var mAttach = new Molecule(habitat);
+            mAttach.Position = mZero.Position.PointOfAngle(Molecule.TETRAHEDRON_SITE, Math.PI * 5 / 6);
+
+            Assert.AreEqual(1, mZero.FreeBound(mAttach));
         }
 
+        [Test]
+        public void BoundPositionTest()
+        {
+            BoundPositionTest(mZero, 0, mZero.Position.X + Molecule.TETRAHEDRON_SITE, mZero.Position.Y);
+            BoundPositionTest(mZero, 1, mZero.Position.X - Molecule.TETRAHEDRON_SITE / 2, mZero.Position.Y + Math.Sqrt(3) * Molecule.TETRAHEDRON_SITE / 2);
+            BoundPositionTest(mZero, 2, mZero.Position.X - Molecule.TETRAHEDRON_SITE / 2, mZero.Position.Y - Math.Sqrt(3) * Molecule.TETRAHEDRON_SITE / 2);
+
+            mZero.BoundType = BoundType.II;
+            BoundPositionTest(mZero, 0, mZero.Position.X - Molecule.TETRAHEDRON_SITE, mZero.Position.Y);
+            BoundPositionTest(mZero, 1, mZero.Position.X + Molecule.TETRAHEDRON_SITE / 2, mZero.Position.Y - Math.Sqrt(3) * Molecule.TETRAHEDRON_SITE / 2);
+            BoundPositionTest(mZero, 2, mZero.Position.X + Molecule.TETRAHEDRON_SITE / 2, mZero.Position.Y + Math.Sqrt(3) * Molecule.TETRAHEDRON_SITE / 2);
+
+        }
+
+        public void BoundPositionTest(Molecule molecule, int boundNr, double xExp, double yExp)
+        {
+            var poz = molecule.BoundPosition(boundNr);
+
+            var poz_expected = new Position(xExp, yExp);
+
+            AssertExtensions.AreAlmostEqual(poz_expected, poz);
+
+        }
 
         [Test]
-        public void TryToAttachDefinitely()
+        public void TryToAttachDefinitelyTest()
         {
+            Molecule mTo, mAttach;
 
-            molecules[1].TryToAttachDefinitely(molecules[0]);
+            mTo = mZero;
+            mAttach = new Molecule(habitat);
+            mAttach.Position = mTo.Position.PointOfAngle(Molecule.TETRAHEDRON_SITE, Math.PI * 5 / 6);
 
-            Assert.AreEqual(1, molecules[0].GetBoundNr(molecules[1]));
+            TryToAttachDefinitelyTest(mTo, mAttach, 1, BoundType.II);
 
-            Assert.AreEqual(1, molecules[1].GetBoundNr(molecules[0]));
+            //------
 
-            Assert.AreEqual(BoundType.II, molecules[1].BoundType);
+            mTo = mAttach;
+            mAttach = new Molecule(habitat);
+            mAttach.Position = mTo.Position.PointOfAngle(Molecule.TETRAHEDRON_SITE, Math.PI);
 
-            var poz = molecules[0].BoundPosition(2);
+            TryToAttachDefinitelyTest(mTo, mAttach, 0, BoundType.I);
 
-            AssertExtensions.AreAlmostEqual(poz.X, molecules[1].Position.X);
-            AssertExtensions.AreAlmostEqual(poz.Y, molecules[1].Position.Y);
+            //------
 
+            mTo = mAttach;
+            mAttach = new Molecule(habitat);
+            mAttach.Position = mTo.Position.PointOfAngle(Molecule.TETRAHEDRON_SITE, 3 * Math.PI / 2);
 
-            Assert.AreEqual(2, molecules[1].Position.TetrahedronPart(molecules[0].Position));
+            TryToAttachDefinitelyTest(mTo, mAttach, 2, BoundType.II);
 
+            //------
+
+            mTo = mAttach;
+            mAttach = new Molecule(habitat);
+            mAttach.Position = mTo.Position.PointOfAngle(Molecule.TETRAHEDRON_SITE, 3 * Math.PI / 2);
+
+            TryToAttachDefinitelyTest(mTo, mAttach, 1, BoundType.I);
+            
+            //------
+
+            mTo = mAttach;
+            mAttach = new Molecule(habitat);
+            mAttach.Position = mTo.Position.PointOfAngle(Molecule.TETRAHEDRON_SITE, 11 * Math.PI / 6);
+
+            Assert.AreEqual(5, mAttach.Position.TetrahedronPart(mTo.Position));
+
+            Assert.AreEqual(0, mTo.FreeBound(mAttach));
+
+            TryToAttachDefinitelyTest(mTo, mAttach, 0, BoundType.II);
+
+            Assert.AreEqual(2, mZero.GetBoundNr(mAttach));
+
+            Assert.AreEqual(2, mAttach.GetBoundNr(mZero));
+
+        }
+
+        public void TryToAttachDefinitelyTest(Molecule mTo, Molecule mAttach, int boundNr_expected, BoundType boudType_expected)
+        {
+            mAttach.TryToAttachDefinitely(mTo);
+
+            Assert.AreEqual(boundNr_expected, mTo.GetBoundNr(mAttach));
+
+            Assert.AreEqual(boundNr_expected, mAttach.GetBoundNr(mTo));
+
+            Assert.AreEqual(boudType_expected, mAttach.BoundType);
+
+            var poz_expected = mTo.BoundPosition(boundNr_expected);
+
+            AssertExtensions.AreAlmostEqual(poz_expected, mAttach.Position);
+
+            // Assert.AreEqual(tetraNr_expected, mAttach.Position.TetrahedronPart(mTo.Position));
         }
     }
 }
