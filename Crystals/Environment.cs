@@ -80,6 +80,7 @@ namespace Crystals
 
         public void Start()
         {
+            Molecules.Add(CondensationCenter);
             for (int i = 0; i < MoleculeCount; i++)
             {
                 var molecule = new Molecule(this);
@@ -111,7 +112,7 @@ namespace Crystals
         {
             foreach (NewBindingListener listener in NewBindingListeners)
             {
-                listener.NewBinding();
+                listener.NewBinding(FlakeMolecules());
             }
         }
 

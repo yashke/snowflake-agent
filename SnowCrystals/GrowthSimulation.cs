@@ -20,7 +20,7 @@ namespace SnowCrystals
 
         Color MainColor = Color.Black;
         Brush MainBrush = Brushes.Black;
-        private HabitatPresenter habitatPresenter;
+        public List<MoleculePresenter> MoleculePresenters = new List<MoleculePresenter>();
 
         Point Center { 
             get { 
@@ -28,11 +28,10 @@ namespace SnowCrystals
             }
         }
 
-        public GrowthSimulation(HabitatPresenter envPresenter)
+        public GrowthSimulation()
         {
             InitializeComponent();
             pen = new Pen(MainColor);
-            habitatPresenter = envPresenter;
         }
 
         public void AddDensityChangeListener(DensityChangeListener listener)
@@ -98,7 +97,7 @@ namespace SnowCrystals
 
         private void drawMolecules(Graphics graphics)
         {
-            foreach (MoleculePresenter mPresenter in habitatPresenter.FlakeMoleculePresenters())
+            foreach (MoleculePresenter mPresenter in MoleculePresenters)
             {
                 mPresenter.Draw(pen, graphics);
             }

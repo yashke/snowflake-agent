@@ -19,7 +19,7 @@ namespace Crystals
         ///    t = acos((x - s.X)/r OR t = asin((y - s.Y)/r
         ///    k = (x - p1.X)/(p2.X-p1.X) OR k = (y - p1.Y)/(p2.Y-p1.Y) 
         /// </summary>
-        static public List<Position> CircleAndSegmentIntersections(Position p1, Position p2, double r, Position s)
+        static public List<Position> CircleAndSegmentIntersections(Position p1, Position p2, double r, Position s, bool includeEnds)
         {
             List<Position> ret = new List<Position>();
             if (p1.X != p2.X)
@@ -42,7 +42,7 @@ namespace Crystals
                 foreach (double x in xs)
                 {
                     double k = (x - p1.X) / (p2.X - p1.X);
-                    if (0 <= k && k <= 1)
+                    if (includeEnds && 0 <= k && k <= 1 || !includeEnds && 0 < k && k < 1)
                     {
                         ret.Add(new Position(x, a * x + b));
                     }
@@ -67,7 +67,7 @@ namespace Crystals
                 foreach (double y in ys)
                 {
                     double k = (y - p1.Y) / (p2.Y - p1.Y);
-                    if (0 <= k && k <= 1)
+                    if (includeEnds && 0 <= k && k <= 1 || !includeEnds && 0 < k && k < 1)
                     {
                         ret.Add(new Position(a, y));
                     }

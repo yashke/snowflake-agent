@@ -26,6 +26,7 @@ namespace Crystals
         public BoundType BoundType { get; set; }
 
         public double HabitatRadius { get { return habitat.Radius; } }
+        public Molecule HabitatCondensationCenter { get { return habitat.CondensationCenter; } }
 
         public Molecule[] Neigbours = new Molecule[3];
         List<MoleculeAttachedListener> MoleculeAttachedListeners = new List<MoleculeAttachedListener>();
@@ -84,7 +85,7 @@ namespace Crystals
         /// <summary>
         /// [Angstrom / (100 piko sek)]
         /// </summary>
-        double Speed
+        public double DefaultSpeed
         {
             get
             {
@@ -112,7 +113,7 @@ namespace Crystals
             }
             else
             {
-                Position = Position.NextRandomPosition(HabitatRadius, this.Speed, this);
+                Position = Position.NextRandomPosition(HabitatRadius, this.DefaultSpeed, this);
             }
         }
 
@@ -182,14 +183,15 @@ namespace Crystals
                     boundMember3.Neigbours[bound3] = this;
                     this.Neigbours[bound3] = boundMember3;
                 }
+                FireMoleculeAttached();
             }
         }
 
-        public void FireMoleculeAttached(Point attached, List<Point> linked)
+        public void FireMoleculeAttached()
         {
             foreach (MoleculeAttachedListener listener in MoleculeAttachedListeners)
             {
-                listener.MoleculeAttached(attached, linked);
+                listener.MoleculeAttached();
             }
         }
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Drawing;
+using System.Threading;
 
 namespace Crystals
 {
@@ -17,7 +18,7 @@ namespace Crystals
                 habitat = env;
             }
 
-            public void MoleculeAttached(Point attached, List<Point> linked)
+            public void MoleculeAttached()
             {
                 habitat.FireNewBinding();
             }
@@ -87,11 +88,15 @@ namespace Crystals
         public List<Molecule> FlakeMolecules()
         {
             List<Molecule> molecules = new List<Molecule>();
-            foreach (Molecule molecule in container)
+            
+            lock (container)
             {
-                if (molecule.BelongsToFlake)
+                foreach (Molecule molecule in container)
                 {
-                    molecules.Add(molecule);
+                    if (molecule.BelongsToFlake)
+                    {
+                        molecules.Add(molecule);
+                    }
                 }
             }
             return molecules;

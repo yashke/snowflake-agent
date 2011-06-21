@@ -20,8 +20,14 @@ namespace SnowCrystals
                 view = v;
             }
 
-            public void NewBinding()
+            public void NewBinding(List<Molecule> molecules)
             {
+                List<MoleculePresenter> presenters = new List<MoleculePresenter>();
+                foreach (Molecule molecule in molecules)
+                {
+                    presenters.Add(new MoleculePresenter(molecule));
+                }
+                view.MoleculePresenters = presenters;
                 view.Invalidate();
                 view.StatusMessage("New Binding");
             }
