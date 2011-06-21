@@ -122,9 +122,18 @@ namespace Crystals
             Molecule interferer = habitat.GetMoveInterferer(this);
             if (interferer != null)
             {
-                this.Bump(interferer);
                 if (interferer.BelongsToFlake)
+                {
+                    habitat.Logger.Log("TRY");
+       
                     TryToAttach(interferer);
+                }
+                else
+                {
+                    habitat.Logger.Log("BUMP");
+       
+                    this.Bump(interferer);
+                }
                 Position.X = interferer.Position.X;
                 Position.Y = interferer.Position.Y;
             }
@@ -153,7 +162,7 @@ namespace Crystals
 
         public void TryToAttach(Molecule boundMember1)
         {
-            if (random.NextDouble() > 0.5)
+            //if (random.NextDouble() > 0.5)
             {
                 TryToAttachDefinitely(boundMember1);
             }
@@ -184,6 +193,7 @@ namespace Crystals
                     this.Neigbours[bound3] = boundMember3;
                 }
                 FireMoleculeAttached();
+                habitat.Logger.Log("ATTACHED");
             }
         }
 

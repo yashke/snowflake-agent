@@ -55,7 +55,6 @@ namespace Crystals
 
         public Habitat(double radius, double temperature, double density)
         {
-            CondensationCenter = new Molecule(this, true);
             this.Temperature = temperature;
             this.Density = density;
             this.Volume = Math.PI * radius * radius;
@@ -65,7 +64,26 @@ namespace Crystals
             Molecules = new MoleculeContainer(this);
             NewBindingListeners = new List<NewBindingListener>();
 
+            CreateCondensationCenter();
+
             Thread = new Thread(new ThreadStart(this.Start));
+
+        }
+
+        void CreateCondensationCenter()
+        {
+            CondensationCenter = new Molecule(this, true);
+            Molecules.Add(CondensationCenter);
+
+            Molecule mTo = CondensationCenter, mAttach;
+            foreach (var angle in new double[] { Math.PI * 5 / 6, Math.PI, 3 * Math.PI / 2, 3 * Math.PI / 2, 11 * Math.PI / 6 })
+            {
+                mAttach = new Molecule(this);
+                mAttach.Position = mTo.Position.PointOfAngle(Molecule.TETRAHEDRON_SITE, angle);
+                Molecules.Add(mAttach);
+                mAttach.TryToAttachDefinitely(mTo);
+                mTo = mAttach;
+            }
         }
 
         public void ThreadStart()
@@ -80,7 +98,6 @@ namespace Crystals
 
         public void Start()
         {
-            Molecules.Add(CondensationCenter);
             for (int i = 0; i < MoleculeCount; i++)
             {
                 var molecule = new Molecule(this);

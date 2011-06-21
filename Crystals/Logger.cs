@@ -13,6 +13,7 @@ namespace Crystals
         }
         public void Log(object o)
         {
+            if (o == "ATTACHED" || o == "TRY")
             Console.WriteLine(String.Format("{0}", o));
         }
     }
