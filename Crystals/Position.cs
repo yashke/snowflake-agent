@@ -139,17 +139,27 @@ namespace Crystals
             {
                 List<Position> crossing = Intersections.CircleAndSegmentIntersections(this, expectedPosition, HabitatRadius, HabitatCondensationCenter.Position);
                 Position crossPosition = crossing.First<Position>();
-                double alpha = Math.PI * random.NextDouble() - Math.PI / 2;
+                double alpha = (4 * Math.PI / 9) * random.NextDouble() - (2 * Math.PI / 9);
                 double angle = HabitatCondensationCenter.Position.Angle(crossPosition);
                 double dMoved = crossPosition.Sub(this).Speed;
-                expectedPosition = crossPosition.PointOfAngle(dMoved, angle - alpha);
+                expectedPosition = crossPosition.PointOfAngle(dMoved, angle + alpha);
                 this.X = crossPosition.X;
                 this.Y = crossPosition.Y;
-                
+                double oldSpeed = Direction.Speed;
+                Direction = expectedPosition.Sub(crossPosition);
+                Direction.Speed = oldSpeed;
+                d.Speed -= dMoved;
             }
+            Direction.Speed = EvaluateSpeed();
             this.X = expectedPosition.X;
             this.Y = expectedPosition.Y;
 
+        }
+
+        public double EvaluateSpeed()
+        {
+            double speedSum = Math.Pow(Direction.Speed, 2) + Math.Pow(Molecule.DefaultSpeed, 2);
+            return NextRandomSpeed(Math.Sqrt(speedSum));
         }
 
         public V Sub(Position poz)

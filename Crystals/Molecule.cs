@@ -85,7 +85,7 @@ namespace Crystals
         /// <summary>
         /// [Angstrom / (100 piko sek)]
         /// </summary>
-        double Speed
+        public double DefaultSpeed
         {
             get
             {
@@ -113,7 +113,7 @@ namespace Crystals
             }
             else
             {
-                Position = Position.NextRandomPosition(HabitatRadius, this.Speed, this);
+                Position = Position.NextRandomPosition(HabitatRadius, this.DefaultSpeed, this);
             }
         }
 
