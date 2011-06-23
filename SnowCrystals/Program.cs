@@ -23,7 +23,7 @@ namespace SnowCrystals
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            env = new Habitat( 150, 10, 1000);
+            env = new Habitat( 80, 10, 5);
             growthSimulation = new GrowthSimulation();
             densityBarController = new DensityBarController(growthSimulation, env);
             densityBarController.BindListeners();

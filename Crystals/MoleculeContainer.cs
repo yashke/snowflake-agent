@@ -35,16 +35,14 @@ namespace Crystals
 
         public Molecule GetMoveInterferer(Molecule molecule)
         {
-            Molecule found = null;
             foreach (Molecule mol in container)
             {
                 if (mol != molecule && molecule.IsNearConflict(mol))
                 {
-                    found = molecule;
-                    break;
+                    return mol;
                 }
             }
-            return found;
+            return null;
         }
 
         #region ICollection<Molecule> Members

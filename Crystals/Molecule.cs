@@ -89,7 +89,7 @@ namespace Crystals
         {
             get
             {
-                return 640 * Math.Sqrt(habitat.Temperature / 25);
+                return 6.4 * Math.Sqrt(habitat.Temperature / 25);
             }
         }
 
