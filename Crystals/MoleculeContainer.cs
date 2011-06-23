@@ -40,11 +40,11 @@ namespace Crystals
             {
                 if (mol != molecule && molecule.IsNearConflict(mol))
                 {
-                    found = molecule;
+                    return mol;
                     break;
                 }
             }
-            return found;
+            return null;
         }
 
         #region ICollection<Molecule> Members

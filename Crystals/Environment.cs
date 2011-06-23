@@ -102,15 +102,14 @@ namespace Crystals
             {
                 var molecule = new Molecule(this);
                 Molecules.Add(molecule);
+                Console.WriteLine(String.Format("{0}", molecule.Position));
             }
-
             while (Opened)
             {
                 foreach (Molecule molecule in Molecules)
                 {
                     molecule.Cycle();
                 }
-                Thread.Sleep(100);
             }
         }
 

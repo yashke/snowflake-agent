@@ -57,7 +57,7 @@ namespace Crystals
         public int? FreeBound(Molecule other)
         {
             int tetrahedronPart = other.Position.TetrahedronPart(Position);
-
+            habitat.Logger.Log1(String.Format("{0} {1} {2}", tetrahedronPart, other.Position, Position));
             int b = BoundType == BoundType.I ? (tetrahedronPart + 1) % 6 / 2 :
                 (tetrahedronPart + 4) % 6 / 2;
 
@@ -89,7 +89,7 @@ namespace Crystals
         {
             get
             {
-                return 640 * Math.Sqrt(habitat.Temperature / 25);
+                return 3.2 * Math.Sqrt(habitat.Temperature / 25);
             }
         }
 
@@ -119,34 +119,35 @@ namespace Crystals
 
         public void Cycle()
         {
-            Molecule interferer = habitat.GetMoveInterferer(this);
-            if (interferer != null)
+            if (!BelongsToFlake)
             {
-                if (interferer.BelongsToFlake)
+                Molecule interferer = habitat.GetMoveInterferer(this);
+                if (interferer != null)
                 {
-                    habitat.Logger.Log("TRY");
-       
-                    TryToAttach(interferer);
+                    if (interferer.BelongsToFlake)
+                    {
+                        habitat.Logger.Log("TRY");
+
+                        TryToAttach(interferer);
+                    }
+                    else
+                    {
+                        habitat.Logger.Log("BUMP");
+
+                        this.Bump(interferer);
+                    }
                 }
-                else
+                if (!BelongsToFlake)
                 {
-                    habitat.Logger.Log("BUMP");
-       
-                    this.Bump(interferer);
+                    Move();
                 }
-                Position.X = interferer.Position.X;
-                Position.Y = interferer.Position.Y;
             }
-            Move();
         }
 
         public void Move()
         {
-            if (!BelongsToFlake)
-            {
-                Position.Move();
-                habitat.Logger.Log(Position);
-            }
+            Position.Move();
+            habitat.Logger.Log(Position);
         }
 
         public void Bump(Molecule other)
