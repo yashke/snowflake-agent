@@ -75,7 +75,6 @@ namespace SnowCrystals
 
         public void StatusMessage(String message)
         {
-            EventLabel.Text = message;
         }
 
         private void densityBar_ValueChanged(object sender, EventArgs e)

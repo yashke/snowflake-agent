@@ -10,7 +10,7 @@ namespace SnowCrystalsTextVersion
         static void Main(string[] args)
         {
             Crystals.Habitat environment = new Crystals.Habitat(150, 10, 0.01);
-
+            
             environment.ThreadStart();
 
             //3.14*80*80*0.01
