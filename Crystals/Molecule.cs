@@ -202,7 +202,7 @@ namespace Crystals
         {
             foreach (MoleculeAttachedListener listener in MoleculeAttachedListeners)
             {
-                listener.MoleculeAttached();
+                listener.MoleculeAttached(this);
             }
         }
 

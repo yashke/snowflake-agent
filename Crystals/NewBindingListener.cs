@@ -7,6 +7,6 @@ namespace Crystals
 {
     public interface NewBindingListener
     {
-        void NewBinding(List<Molecule> flakeMolecules);
+        void NewBinding(Molecule flakeMolecule);
     }
 }

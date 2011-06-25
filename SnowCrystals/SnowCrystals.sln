@@ -1,8 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SnowCrystals", "SnowCrystals.csproj", "{6A74634A-4DC1-447B-80F8-0EAFDFB8C359}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crystals", "..\Crystals\Crystals.csproj", "{412990C2-A306-4CC7-AB03-708686988AC9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SnowCrystalsTextVersion", "..\SnowCrystalsTextVersion\SnowCrystalsTextVersion.csproj", "{D89F14A4-CCD9-4D2B-B4DF-EBF7B0D42243}"
@@ -17,10 +15,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{6A74634A-4DC1-447B-80F8-0EAFDFB8C359}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6A74634A-4DC1-447B-80F8-0EAFDFB8C359}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6A74634A-4DC1-447B-80F8-0EAFDFB8C359}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6A74634A-4DC1-447B-80F8-0EAFDFB8C359}.Release|Any CPU.Build.0 = Release|Any CPU
 		{412990C2-A306-4CC7-AB03-708686988AC9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{412990C2-A306-4CC7-AB03-708686988AC9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{412990C2-A306-4CC7-AB03-708686988AC9}.Release|Any CPU.ActiveCfg = Release|Any CPU

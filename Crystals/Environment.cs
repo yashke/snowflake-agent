@@ -127,11 +127,11 @@ namespace Crystals
             NewBindingListeners.Add(listener);
         }
 
-        public void FireNewBinding()
+        public void FireNewBinding(Molecule molecule)
         {
             foreach (NewBindingListener listener in NewBindingListeners)
             {
-                listener.NewBinding(FlakeMolecules());
+                listener.NewBinding(molecule);
             }
         }
 

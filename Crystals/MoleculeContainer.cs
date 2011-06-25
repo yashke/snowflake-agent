@@ -18,9 +18,9 @@ namespace Crystals
                 habitat = env;
             }
 
-            public void MoleculeAttached()
+            public void MoleculeAttached(Molecule molecule)
             {
-                habitat.FireNewBinding();
+                habitat.FireNewBinding(molecule);
             }
         }
 

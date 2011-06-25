@@ -8,6 +8,6 @@ namespace Crystals
 {
     public interface MoleculeAttachedListener
     {
-        void MoleculeAttached();
+        void MoleculeAttached(Molecule molecule);
     }
 }
