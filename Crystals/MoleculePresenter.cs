@@ -8,12 +8,16 @@ namespace Crystals
 {
     public class MoleculePresenter
     {
-        private Molecule molecule;
-        private Point point;
-
+        public static int counter = 0;
+        public Molecule molecule;
+     
         public MoleculePresenter(Molecule m)
         {
             molecule = m;
+            int x = (int)Math.Round(molecule.Position.X, 0) + 150;
+            int y = (int)Math.Round(molecule.Position.Y, 0) + 150;
+            Point = new Point(x, y);
+
         }
 
         public void Draw(Pen pen, Graphics graphics)
@@ -23,20 +27,16 @@ namespace Crystals
                 Molecule m = molecule.Neigbours[i];
                 if (m != null)
                 {
-                    graphics.DrawLine(pen, this.Point(), m.Presenter.Point());
+                    graphics.DrawLine(pen, this.Point, m.Presenter.Point);
                 }
             }
         }
 
-        public Point Point()
+
+        public Point Point
         {
-            if (point == null)
-            {
-                int x = (int)molecule.Position.X + 150;
-                int y = (int)molecule.Position.Y + 150;
-                point = new Point(x, y);
-            }
-            return point;
+            get;
+            private set;
         }
     }
 }

@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SnowCrystalsTextVersion", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrystalsTests", "..\CrystalsTests\CrystalsTests.csproj", "{A5ECDFEF-27E2-4468-A16A-E9A971222607}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SnowCrystalsV2", "..\SnowCrystalsV2\SnowCrystalsV2.csproj", "{847C12A3-00EC-49A0-A5EF-3AE2A0C192E7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,6 +33,10 @@ Global
 		{A5ECDFEF-27E2-4468-A16A-E9A971222607}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A5ECDFEF-27E2-4468-A16A-E9A971222607}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A5ECDFEF-27E2-4468-A16A-E9A971222607}.Release|Any CPU.Build.0 = Release|Any CPU
+		{847C12A3-00EC-49A0-A5EF-3AE2A0C192E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{847C12A3-00EC-49A0-A5EF-3AE2A0C192E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{847C12A3-00EC-49A0-A5EF-3AE2A0C192E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{847C12A3-00EC-49A0-A5EF-3AE2A0C192E7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
