@@ -14,8 +14,8 @@ namespace Crystals
         public MoleculePresenter(Molecule m)
         {
             molecule = m;
-            int x = (int)Math.Round(molecule.Position.X, 0) + 150;
-            int y = (int)Math.Round(molecule.Position.Y, 0) + 150;
+            int x = (int)Math.Round(molecule.Position.X, 0);
+            int y = (int)Math.Round(molecule.Position.Y, 0);
             Point = new Point(x, y);
 
         }

@@ -53,7 +53,7 @@ namespace Crystals
         /// <param name="temperature"></param>
         /// <param name="density"></param>
 
-        public Habitat(double radius, double temperature, double density)
+        public Habitat(double radius, double temperature, double density, double centerX, double centerY )
         {
             this.Temperature = temperature;
             this.Density = density;
@@ -61,20 +61,23 @@ namespace Crystals
             this.Density_Current = density;
             this.Radius = radius;
             Logger = new Logger();
-            Molecules = new MoleculeContainer(this);
+         
             NewBindingListeners = new List<NewBindingListener>();
 
-            CreateCondensationCenter();
+            Molecules = new MoleculeContainer(this);
+
+            CreateCondensationCenter(centerX, centerY);
 
             Thread = new Thread(new ThreadStart(this.Start));
-
         }
 
-        void CreateCondensationCenter()
+        void CreateCondensationCenter(double centerX, double centerY)
         {
-            CondensationCenter = new Molecule(this, true);
+            this.CondensationCenter = new Molecule(this, true);
+            this.CondensationCenter.Position.X = centerX;
+            this.CondensationCenter.Position.Y = centerY;
             Molecules.Add(CondensationCenter);
-
+           
             Molecule mTo = CondensationCenter, mAttach;
             foreach (var angle in new double[] { Math.PI * 5 / 6, Math.PI, 3 * Math.PI / 2, 3 * Math.PI / 2, 11 * Math.PI / 6 })
             {

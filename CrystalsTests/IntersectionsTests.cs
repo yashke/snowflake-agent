@@ -31,17 +31,6 @@ namespace CrystalsTests
 
             AssertExtensions.AreAlmostEqual(pExp, positions[0]);
 
-
-            positions = Intersections.CircleAndSegmentIntersections(
-                new Position(-73.421097143084012, 130.80268534822142), 
-                new Position(-73.421097143083955, 130.80268534822139),
-                150, new Position(0, 0), false);
-            Assert.AreEqual(1, positions.Count());
-
-            pExp = new Position(6, -8);
-
-            AssertExtensions.AreAlmostEqual(pExp, positions[0]);
-
         }
     }
 }

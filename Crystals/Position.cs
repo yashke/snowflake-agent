@@ -119,7 +119,7 @@ namespace Crystals
             {
                 x = this.X + Direction.X;
                 y = this.Y + Direction.Y;
-                if (Math.Pow(x, 2) + Math.Pow(y, 2) < Math.Pow(HabitatRadius, 2))
+                if (Math.Pow(x - Molecule.HabitatCondensationCenter.Position.X, 2) + Math.Pow(y - Molecule.HabitatCondensationCenter.Position.Y, 2) < Math.Pow(HabitatRadius, 2))
                 {
                     this.X += Direction.X;
                     this.Y += Direction.Y;

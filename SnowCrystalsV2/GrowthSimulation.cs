@@ -24,7 +24,7 @@ namespace SnowCrystals
 
 
 
-        Point Center
+        public Point Center
         {
             get
             {
