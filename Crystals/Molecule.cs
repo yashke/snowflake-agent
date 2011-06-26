@@ -18,6 +18,8 @@ namespace Crystals
         public static double RADIUS = 2.5;
         public static double TETRAHEDRON_SITE = 3.9;
         public static double DESIRE = 0.55;
+        public static double DESIRE_RADIUS = RADIUS * 10;
+
 
         List<IPositionChangeListener> positionChangeListeners = new List<IPositionChangeListener>();
 
@@ -96,7 +98,7 @@ namespace Crystals
 
         public enum InitMoleculeType
         {
-            Center, 
+            Center,
             Initial,
             Additional
         }
@@ -122,11 +124,11 @@ namespace Crystals
             else
             {
                 Position = Position.NextRandomPosition(
-                    habitat.CondensationCenter.Position.X, 
+                    habitat.CondensationCenter.Position.X,
                     habitat.CondensationCenter.Position.Y,
-                    habitat.Radius, 
-                    this.DefaultSpeed, 
-                    this, 
+                    habitat.Radius,
+                    this.DefaultSpeed,
+                    this,
                     type == InitMoleculeType.Additional);
             }
         }
@@ -135,20 +137,18 @@ namespace Crystals
         {
             if (!BelongsToFlake)
             {
-                Molecule interferer = habitat.GetMoveInterferer(this);
-                if (interferer != null)
+                Molecule closest = habitat.FindMostDesiredOrInterfering(this);
+                if (closest != null)
                 {
-                    if (interferer.BelongsToFlake)
+                    if (closest.BelongsToFlake)
                     {
                         habitat.Logger.Log("TRY");
-
-                        TryToAttach(interferer);
+                        TryToAttach(closest);
                     }
-                    else
+                    else if (IsNearConflict(closest))
                     {
                         habitat.Logger.Log("BUMP");
-
-                        this.Bump(interferer);
+                        this.Bump(closest);
                     }
                 }
                 if (!BelongsToFlake)
@@ -227,10 +227,25 @@ namespace Crystals
             MoleculeAttachedListeners.Add(listener);
         }
 
-        public bool IsNearConflict(Molecule otherMolecule)
+        public bool IsNearConflict(Molecule other)
         {
-            V vector = Position - otherMolecule.Position;
-            return vector.Speed <= RADIUS * 2;
+            return Distanse(other) <= RADIUS * 2;
+        }
+
+        public bool IsDesired(Molecule other, out double dist)
+        {
+            dist = Distanse(other);
+            return dist <= DESIRE_RADIUS;
+        }
+
+        public bool IsDesired(Molecule other)
+        {
+            return Distanse(other) <= DESIRE_RADIUS;
+        }
+
+        public double Distanse(Molecule other)
+        {
+            return (Position - other.Position).Speed;
         }
 
     }

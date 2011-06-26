@@ -21,7 +21,7 @@ namespace SnowCrystals
         [STAThread]
         static void Main()
         {
-            double radius = 200, temperature = 10, density = 0.01;
+            double radius = 200, temperature = 10, density = 0.007;
             float scale = (float)0.5;
 
             Application.EnableVisualStyles();

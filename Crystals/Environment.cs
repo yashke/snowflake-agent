@@ -132,9 +132,9 @@ namespace Crystals
             Molecules.Add(new Molecule(this, type));
         }
 
-        public Molecule GetMoveInterferer(Molecule molecule)
+        public Molecule FindMostDesiredOrInterfering(Molecule molecule)
         {
-           return Molecules.GetMoveInterferer(molecule);
+            return Molecules.FindMostDesiredOrInterfering(molecule);
 
         }
 

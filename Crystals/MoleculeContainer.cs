@@ -45,16 +45,23 @@ namespace Crystals
             }
         }
 
-        public Molecule GetMoveInterferer(Molecule molecule)
+        public Molecule FindMostDesiredOrInterfering(Molecule molecule)
         {
-            foreach (Molecule mol in container)
+            double dist = Double.MaxValue;
+            double currDist;
+            Molecule ret = null;
+            for (int i = 0; i < container.Count; i++ )
             {
-                if (mol != molecule && molecule.IsNearConflict(mol))
+                if (container[i] != molecule)
                 {
-                    return mol;
+                    if(molecule.IsDesired(this[i], out currDist) && currDist < dist)
+                    {
+                        ret = this[i];
+                        dist = currDist;
+                    }
                 }
             }
-            return null;
+            return ret;
         }
 
         #region ICollection<Molecule> Members
