@@ -32,6 +32,8 @@
             this.mainPanel = new System.Windows.Forms.PictureBox();
             this.lblStatus = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.txtScale = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.mainPanel)).BeginInit();
             this.SuspendLayout();
             // 
@@ -58,11 +60,30 @@
             this.timer1.Interval = 1000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
+            // txtScale
+            // 
+            this.txtScale.Location = new System.Drawing.Point(43, 19);
+            this.txtScale.Name = "txtScale";
+            this.txtScale.Size = new System.Drawing.Size(40, 20);
+            this.txtScale.TabIndex = 11;
+            this.txtScale.TextChanged += new System.EventHandler(this.txtScale_TextChanged);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(9, 22);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(37, 13);
+            this.label1.TabIndex = 12;
+            this.label1.Text = "Scale:";
+            // 
             // GrowthSimulation
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(824, 706);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.txtScale);
             this.Controls.Add(this.lblStatus);
             this.Controls.Add(this.mainPanel);
             this.Name = "GrowthSimulation";
@@ -79,5 +100,7 @@
         private System.Windows.Forms.PictureBox mainPanel;
         private System.Windows.Forms.Label lblStatus;
         private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.TextBox txtScale;
+        private System.Windows.Forms.Label label1;
     }
 }

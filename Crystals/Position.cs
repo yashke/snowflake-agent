@@ -144,12 +144,12 @@ namespace Crystals
                 Position crossPosition = crossing.First<Position>();
                 double alpha = (4 * Math.PI / 9) * random.NextDouble() - (2 * Math.PI / 9);
                 double angle = HabitatCondensationCenter.Position.Angle(crossPosition);
-                double dMoved = crossPosition.Sub(this).Speed;
+                double dMoved = (crossPosition - this).Speed;
                 expectedPosition = crossPosition.PointOfAngle(dMoved, angle + alpha);
                 this.X = crossPosition.X;
                 this.Y = crossPosition.Y;
                 double oldSpeed = Direction.Speed;
-                Direction = expectedPosition.Sub(crossPosition);
+                Direction = expectedPosition - crossPosition;
                 Direction.Speed = oldSpeed;
                 d.Speed -= dMoved;
             }
@@ -166,9 +166,9 @@ namespace Crystals
             return NextRandomSpeed(Math.Sqrt(speedSum));
         }
 
-        public V Sub(Position poz)
+        public static V operator -(Position a, Position b)
         {
-            return new V(X - poz.X, Y - poz.Y);
+            return new V(a.X - b.X, a.Y - b.Y);
         }
 
         public override string ToString()
@@ -181,7 +181,7 @@ namespace Crystals
         public static Position NextRandomPosition(double centerX, double centerY, double radius, double speed, Molecule molecule, bool fromBorder)
         {
             var alpha = 2 * Math.PI * random.NextDouble();
-            var distance = fromBorder ? radius - 1 : (radius - 21) * random.NextDouble() + 20;
+            var distance = fromBorder ? radius - 1 : (radius - 21) * Math.Sqrt(random.NextDouble()) + 20;
 
             var x = distance * Math.Cos(alpha) + centerX;
             var y = distance * Math.Sin(alpha) + centerY;

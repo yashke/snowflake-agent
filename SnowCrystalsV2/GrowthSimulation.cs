@@ -27,6 +27,8 @@ namespace SnowCrystals
         public ArrayList MoleculePresenters = new ArrayList();
         public ArrayList AllMoleculePresenters = new ArrayList();
 
+        public float Scale { get; private set; }
+
         private int radius;
 
         public Point Center
@@ -37,13 +39,15 @@ namespace SnowCrystals
             }
         }
 
-        public GrowthSimulation(int radius)
+        public GrowthSimulation(int radius, float scale)
         {
             InitializeComponent();
             Logger.StartLog();
 
             this.radius = radius;
-            
+            this.Scale = scale;
+            txtScale.Text = String.Format("{0}", Scale);
+
             pen = new Pen(MainColor);
             moleculePen = new Pen(MoleculeColor);
         }
@@ -120,7 +124,7 @@ namespace SnowCrystals
             for (int i = 0; i < MoleculePresenters.Count; i++)
             {
                 MoleculePresenter mPresenter = (MoleculePresenter)MoleculePresenters[i];
-                mPresenter.Draw(pen, graphics);
+                mPresenter.Draw(pen, graphics, Scale);
             }
         }
 
@@ -131,14 +135,14 @@ namespace SnowCrystals
                 //if (i % 100 == 0)
                 {
                     MoleculePresenter mPresenter = (MoleculePresenter)AllMoleculePresenters[i];
-                    mPresenter.DrawPoint(moleculePen, graphics);
+                    mPresenter.DrawPoint(moleculePen, graphics, Scale);
                 }
             }
         }
 
         private void drawEnvironment(Graphics graphics)
         {
-            graphics.DrawEllipse(pen, Center.X - radius, Center.Y - radius, radius * 2, radius * 2);
+            graphics.DrawEllipse(pen, Center.X * Scale - radius * Scale, Center.Y * Scale - radius * Scale, radius * Scale * 2, radius * Scale * 2);
         }
 
         private void mainPanel_Paint(object sender, PaintEventArgs e)
@@ -159,6 +163,13 @@ namespace SnowCrystals
         {
             StatusMessage("Tick");
             mainPanel.Invalidate();
+        }
+
+        private void txtScale_TextChanged(object sender, EventArgs e)
+        {
+            float sc;
+            if (float.TryParse(((TextBox)sender).Text, out sc))
+                Scale = sc;
         }
     }
 }

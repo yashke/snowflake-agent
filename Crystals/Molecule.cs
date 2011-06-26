@@ -166,11 +166,13 @@ namespace Crystals
 
         public void Bump(Molecule other)
         {
-            double v2v2 = Math.Pow(this.Position.Direction.Speed, 2) + Math.Pow(other.Position.Direction.Speed, 2);
+            /*double v2v2 = Math.Pow(this.Position.Direction.Speed, 2) + Math.Pow(other.Position.Direction.Speed, 2);
             var s1 = Position.NextRandomSpeed(Math.Sqrt(v2v2));
             this.Position.Direction = Position.NextRandomDirection(s1);
             var s2 = Math.Sqrt(v2v2 - s1 * s1);
-            other.Position.Direction = Position.NextRandomDirection(s2);
+            other.Position.Direction = Position.NextRandomDirection(s2);*/
+
+            Collision.DoElasticCollisionOfTwoBalls(1, this.Position, 1, other.Position);
         }
 
         Random random = new Random();
@@ -227,7 +229,7 @@ namespace Crystals
 
         public bool IsNearConflict(Molecule otherMolecule)
         {
-            V vector = Position.Sub(otherMolecule.Position);
+            V vector = Position - otherMolecule.Position;
             return vector.Speed <= RADIUS * 2;
         }
 

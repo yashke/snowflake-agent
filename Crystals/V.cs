@@ -44,6 +44,29 @@ namespace Crystals
             return String.Format("<{0},{1},{2}>", X, Y);
         }
 
-    }
+        public static double operator *(V a, V b)
+        {
+            return a.X * b.X + a.Y * b.Y;
+        }
 
+        public static V operator *(double a, V b)
+        {
+            return new V(a * b.X, a * b.Y);
+        }
+
+
+		/// <summary>
+        /// Get a unit vector in the direction of this vector
+        /// If this vector is the 0 vector, return a 0 vector
+        /// </summary>
+		/// <returns></returns>
+        public V UnitVector() 
+        {
+			double mag = Speed;
+			if (mag != 0.0) 
+                return new V(X / mag, Y / mag);
+			else 
+                return new V(0, 0);
+		}
+    }
 }

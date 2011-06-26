@@ -12,28 +12,30 @@ namespace Crystals
         public Molecule molecule;
 
         private Point point;
-     
+
         public MoleculePresenter(Molecule m)
         {
             molecule = m;
             point = new Point(0, 0);
         }
 
-        public void Draw(Pen pen, Graphics graphics)
+        public void Draw(Pen pen, Graphics graphics, float scale)
         {
             for (int i = 0; i < 3; i++)
             {
                 Molecule m = molecule.Neigbours[i];
                 if (m != null)
                 {
-                    graphics.DrawLine(pen, this.Point, m.Presenter.Point);
+                    graphics.DrawLine(pen, 
+                        this.Point.X * scale, this.Point.Y * scale, 
+                        m.Presenter.Point.X * scale, m.Presenter.Point.Y * scale);
                 }
             }
         }
 
-        public void DrawPoint(Pen pen, Graphics graphics)
+        public void DrawPoint(Pen pen, Graphics graphics, float scale)
         {
-            graphics.DrawEllipse(pen, this.Point.X, this.Point.Y, 1, 1);
+            graphics.DrawEllipse(pen, this.Point.X * scale, this.Point.Y * scale, 1, 1);
         }
 
 

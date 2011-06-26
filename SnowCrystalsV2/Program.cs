@@ -21,13 +21,13 @@ namespace SnowCrystals
         [STAThread]
         static void Main()
         {
-            double radius = 150, temperature = 10, density = 0.01;
-
+            double radius = 200, temperature = 10, density = 0.01;
+            float scale = (float)0.5;
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
            
-            growthSimulation = new GrowthSimulation((int)radius);
+            growthSimulation = new GrowthSimulation((int)radius, scale);
             env = new Habitat(radius, temperature, density, growthSimulation.Center.X, growthSimulation.Center.Y);
             densityBarController = new DensityBarController(growthSimulation, env);
             densityBarController.BindListeners();
