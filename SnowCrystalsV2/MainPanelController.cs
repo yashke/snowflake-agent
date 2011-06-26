@@ -34,6 +34,8 @@ namespace SnowCrystals
             {
                 var presenter = new MoleculePresenter(molecule);
                 view.AllMoleculePresenters.Add(presenter);
+                Logger.Log("All molecules count", view.AllMoleculePresenters.Count);
+                view.StatusMessage(String.Format("{0}", view.AllMoleculePresenters.Count));
             }
         }
 

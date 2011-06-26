@@ -79,6 +79,7 @@ namespace Crystals
             NewBindingListeners = new List<NewBindingListener>();
 
             Molecules = new MoleculeContainer(this);
+            Molecules.AddMoleculeAddedListener(new MoleculeAddListener(this));
 
             this.CondensationCenter = new Molecule(this, true);
             this.CondensationCenter.Position.X = centerX;

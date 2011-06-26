@@ -113,7 +113,7 @@ namespace Crystals
             }
             else
             {
-                Position = Position.NextRandomPosition(HabitatRadius, this.DefaultSpeed, this);
+                Position = Position.NextRandomPosition(habitat.CondensationCenter.Position.X, habitat.CondensationCenter.Position.Y, habitat.Radius, this.DefaultSpeed, this);
             }
         }
 

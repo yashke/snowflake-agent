@@ -18,8 +18,10 @@ namespace SnowCrystals
         private List<ICloseListener> closeListeners = new List<ICloseListener>();
 
         Pen pen;
+        Pen moleculePen;
 
         Color MainColor = Color.Black;
+        Color MoleculeColor = Color.Blue;
         Brush MainBrush = Brushes.Black;
         public ArrayList MoleculePresenters = new ArrayList();
         public ArrayList AllMoleculePresenters = new ArrayList();
@@ -42,6 +44,7 @@ namespace SnowCrystals
             this.radius = radius;
             
             pen = new Pen(MainColor);
+            moleculePen = new Pen(MoleculeColor);
         }
 
         public void RepaintBindings()
@@ -124,8 +127,11 @@ namespace SnowCrystals
         {
             for (int i = 0; i < AllMoleculePresenters.Count; i++)
             {
-                MoleculePresenter mPresenter = (MoleculePresenter)AllMoleculePresenters[i];
-                mPresenter.DrawPoint(pen, graphics);
+                //if (i % 100 == 0)
+                {
+                    MoleculePresenter mPresenter = (MoleculePresenter)AllMoleculePresenters[i];
+                    mPresenter.DrawPoint(moleculePen, graphics);
+                }
             }
         }
 
@@ -150,6 +156,7 @@ namespace SnowCrystals
 
         private void timer1_Tick(object sender, EventArgs e)
         {
+            StatusMessage("Tick");
             mainPanel.Invalidate();
         }
     }

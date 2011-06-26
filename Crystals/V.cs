@@ -20,8 +20,16 @@ namespace Crystals
                 lock (this)
                 {
                     double old = Speed;
-                    X = X * value / old;
-                    Y = Y * value / old;
+                    if (old == 0)
+                    {
+                        X = value;
+                        Y = 0;
+                    }
+                    else
+                    {
+                        X = X * value / old;
+                        Y = Y * value / old;
+                    }
                 }
             }
         }
