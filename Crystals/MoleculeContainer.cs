@@ -29,6 +29,7 @@ namespace Crystals
         public ArrayList container;
         public int FlakeMoleculesCount = 0;
         public Habitat Habitat;
+        private List<MoleculeAddedListener> MoleculeAddedListeners = new List<MoleculeAddedListener>();
 
         public MoleculeContainer(Habitat habitat)
         {
@@ -61,6 +62,7 @@ namespace Crystals
         public void Add(Molecule item)
         {
             container.Add(item);
+            FireMoleculeAdded(item);
             item.AddMoleculeAttachedListener(new AttachingListener(Habitat));
         }
 
@@ -93,6 +95,19 @@ namespace Crystals
         {
              container.Remove(item);
              return true;
+        }
+
+        public void FireMoleculeAdded(Molecule molecule)
+        {
+            foreach (MoleculeAddedListener listener in MoleculeAddedListeners)
+            {
+                listener.MoleculeAdded(molecule);
+            }
+        }
+
+        public void AddMoleculeAddedListener(MoleculeAddedListener listener)
+        {
+            MoleculeAddedListeners.Add(listener);
         }
 
         /*public List<Molecule> FlakeMolecules()

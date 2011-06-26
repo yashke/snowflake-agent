@@ -128,6 +128,7 @@ namespace Crystals
                 {
                     BumpWalls();
                 }
+
             }
         }
 
@@ -156,6 +157,7 @@ namespace Crystals
             this.X = expectedPosition.X;
             this.Y = expectedPosition.Y;
 
+
         }
 
         public double EvaluateSpeed()
@@ -176,19 +178,20 @@ namespace Crystals
 
         public static Random random = new Random();
 
-        public static Position NextRandomPosition(double radius, double speed, Molecule molecule)
+        public static Position NextRandomPosition(double centerX, double centerY, double radius, double speed, Molecule molecule, bool fromBorder)
         {
             var alpha = 2 * Math.PI * random.NextDouble();
+            var distance = fromBorder ? radius - 1 : (radius - 21) * random.NextDouble() + 20;
 
-            var x = radius * Math.Cos(alpha);
-            var y = radius * Math.Sin(alpha);
+            var x = distance * Math.Cos(alpha) + centerX;
+            var y = distance * Math.Sin(alpha) + centerY;
 
             return new Position(x, y, Position.NextRandomDirection(speed), molecule);
         }
 
         public static V NextRandomDirection(double speed)
         {
-            var v = new V(random.NextDouble(), random.NextDouble());
+            var v = new V(random.NextDouble() - 0.5, random.NextDouble() - 0.5);
             v.Speed = speed;
 
             return v;

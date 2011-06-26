@@ -17,6 +17,7 @@ namespace Crystals
     {
         public static double RADIUS = 2.5;
         public static double TETRAHEDRON_SITE = 3.9;
+        public static double DESIRE = 0.55;
 
         List<IPositionChangeListener> positionChangeListeners = new List<IPositionChangeListener>();
 
@@ -93,27 +94,40 @@ namespace Crystals
             }
         }
 
+        public enum InitMoleculeType
+        {
+            Center, 
+            Initial,
+            Additional
+        }
+
         public Molecule(Habitat habitat)
         {
-            Init(habitat, false);
+            Init(habitat, InitMoleculeType.Initial);
         }
 
-        public Molecule(Habitat habitat, bool isCondensationCenter)
+        public Molecule(Habitat habitat, InitMoleculeType type)
         {
-            Init(habitat, isCondensationCenter);
+            Init(habitat, type);
         }
 
-        public void Init(Habitat habitat, bool isCondensationCenter)
+        public void Init(Habitat habitat, InitMoleculeType type)
         {
             this.habitat = habitat;
-            if (isCondensationCenter)
+            if (type == InitMoleculeType.Center)
             {
                 BelongsToFlake = true;
                 Position = new Position(0, 0, null, this);
             }
             else
             {
-                Position = Position.NextRandomPosition(HabitatRadius, this.DefaultSpeed, this);
+                Position = Position.NextRandomPosition(
+                    habitat.CondensationCenter.Position.X, 
+                    habitat.CondensationCenter.Position.Y,
+                    habitat.Radius, 
+                    this.DefaultSpeed, 
+                    this, 
+                    type == InitMoleculeType.Additional);
             }
         }
 
@@ -163,7 +177,7 @@ namespace Crystals
 
         public void TryToAttach(Molecule boundMember1)
         {
-            //if (random.NextDouble() > 0.5)
+            if (random.NextDouble() > DESIRE)
             {
                 TryToAttachDefinitely(boundMember1);
             }

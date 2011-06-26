@@ -10,13 +10,13 @@ namespace Crystals
     {
         public static int counter = 0;
         public Molecule molecule;
+
+        private Point point;
      
         public MoleculePresenter(Molecule m)
         {
             molecule = m;
-            int x = (int)Math.Round(molecule.Position.X, 0);
-            int y = (int)Math.Round(molecule.Position.Y, 0);
-            Point = new Point(x, y);
+            point = new Point(0, 0);
         }
 
         public void Draw(Pen pen, Graphics graphics)
@@ -31,11 +31,20 @@ namespace Crystals
             }
         }
 
+        public void DrawPoint(Pen pen, Graphics graphics)
+        {
+            graphics.DrawEllipse(pen, this.Point.X, this.Point.Y, 1, 1);
+        }
+
 
         public Point Point
         {
-            get;
-            private set;
+            get
+            {
+                point.X = (int)Math.Round(molecule.Position.X, 0);
+                point.Y = (int)Math.Round(molecule.Position.Y, 0);
+                return point;
+            }
         }
     }
 }

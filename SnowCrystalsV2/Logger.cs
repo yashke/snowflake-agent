@@ -21,13 +21,13 @@ namespace SnowCrystals
 
         public static void Log(string message)
         {
-            sw.Write("<tr><td colspan='2'>");
-            sw.Write(message);
+            //sw.Write("<tr><td colspan='2'>");
+            //sw.Write(message);
         }
 
         public static void Log(object source, object tolog)
         {
-            sw.Write(String.Format("<tr><td>{0}<td>{1}", source, tolog));
+            //sw.Write(String.Format("<tr><td>{0}<td>{1}", source, tolog));
         }
 
         public static void EndLog()

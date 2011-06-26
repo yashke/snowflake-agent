@@ -8,6 +8,20 @@ namespace Crystals
 {
     public class Habitat
     {
+        class MoleculeAddListener : MoleculeAddedListener
+        {
+            Habitat habitat;
+            public MoleculeAddListener(Habitat habitat)
+            {
+                this.habitat = habitat;
+            }
+
+            public void MoleculeAdded(Molecule molecule)
+            {
+                habitat.FireMoleculeAdded(molecule);
+            }
+        }
+
         public Logger Logger { get; set; }
 
         /// <summary>
@@ -65,8 +79,9 @@ namespace Crystals
             NewBindingListeners = new List<NewBindingListener>();
 
             Molecules = new MoleculeContainer(this);
+            Molecules.AddMoleculeAddedListener(new MoleculeAddListener(this));
 
-            this.CondensationCenter = new Molecule(this, true);
+            this.CondensationCenter = new Molecule(this, Molecule.InitMoleculeType.Center);
             this.CondensationCenter.Position.X = centerX;
             this.CondensationCenter.Position.Y = centerY;
             Molecules.Add(CondensationCenter);
@@ -79,7 +94,7 @@ namespace Crystals
             Molecule mTo = CondensationCenter, mAttach;
             foreach (var angle in new double[] { Math.PI * 5 / 6, Math.PI, 3 * Math.PI / 2, 3 * Math.PI / 2, 11 * Math.PI / 6 })
             {
-                mAttach = new Molecule(this);
+                mAttach = new Molecule(this, Molecule.InitMoleculeType.Center);
                 mAttach.Position = mTo.Position.PointOfAngle(Molecule.TETRAHEDRON_SITE, angle);
                 Molecules.Add(mAttach);
                 mAttach.TryToAttachDefinitely(mTo); 
@@ -103,7 +118,7 @@ namespace Crystals
 
             for (int i = 0; i < MoleculeCount; i++)
             {
-                CreateMolecule();
+                CreateMolecule(Molecule.InitMoleculeType.Initial);
             }
             while (Opened)
             {
@@ -112,9 +127,9 @@ namespace Crystals
             }
         }
 
-        public void CreateMolecule()
+        public void CreateMolecule(Molecule.InitMoleculeType type)
         {
-            Molecules.Add(new Molecule(this));
+            Molecules.Add(new Molecule(this, type));
         }
 
         public Molecule GetMoveInterferer(Molecule molecule)
@@ -134,7 +149,15 @@ namespace Crystals
             {
                 listener.NewBinding(molecule);
             }
-            CreateMolecule();
+            CreateMolecule(Molecule.InitMoleculeType.Additional);
+        }
+
+        public void FireMoleculeAdded(Molecule molecule)
+        {
+            foreach (NewBindingListener listener in NewBindingListeners)
+            {
+                listener.MoleculeAdded(molecule);
+            }
         }
 
        /* public List<Molecule> FlakeMolecules()
