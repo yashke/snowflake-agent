@@ -22,8 +22,6 @@ namespace SnowCrystals
         Brush MainBrush = Brushes.Black;
         public List<MoleculePresenter> MoleculePresenters = new List<MoleculePresenter>();
 
-
-
         public Point Center
         {
             get

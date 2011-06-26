@@ -103,15 +103,18 @@ namespace Crystals
 
             for (int i = 0; i < MoleculeCount; i++)
             {
-                var molecule = new Molecule(this);
-                Molecules.Add(molecule);
-                Console.WriteLine(String.Format("{0}", molecule.Position));
+                CreateMolecule();
             }
             while (Opened)
             {
                 for(int i = 0; i<Molecules.Count; i++)
                     Molecules[i].Cycle();
             }
+        }
+
+        public void CreateMolecule()
+        {
+            Molecules.Add(new Molecule(this));
         }
 
         public Molecule GetMoveInterferer(Molecule molecule)
@@ -131,6 +134,7 @@ namespace Crystals
             {
                 listener.NewBinding(molecule);
             }
+            CreateMolecule();
         }
 
        /* public List<Molecule> FlakeMolecules()
