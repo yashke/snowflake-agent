@@ -17,10 +17,7 @@ namespace Crystals
     {
         public static double RADIUS = 2.5;
         public static double TETRAHEDRON_SITE = 3.9;
-        public static double DESIRE = 0.55;
-        public static double DESIRE_RADIUS = RADIUS * 10;
-
-
+        
         List<IPositionChangeListener> positionChangeListeners = new List<IPositionChangeListener>();
 
         Habitat habitat;
@@ -179,7 +176,9 @@ namespace Crystals
 
         public void TryToAttach(Molecule boundMember1)
         {
-            if (random.NextDouble() > DESIRE)
+            //if (random.NextDouble() > DESIRE)
+            var dist = this.Distanse(boundMember1);
+            if (random.NextDouble() < (1 - dist/habitat.DesireRadius) * habitat.Desire)
             {
                 TryToAttachDefinitely(boundMember1);
             }
@@ -235,12 +234,12 @@ namespace Crystals
         public bool IsDesired(Molecule other, out double dist)
         {
             dist = Distanse(other);
-            return dist <= DESIRE_RADIUS;
+            return dist <=  habitat.DesireRadius;
         }
 
         public bool IsDesired(Molecule other)
         {
-            return Distanse(other) <= DESIRE_RADIUS;
+            return Distanse(other) <= habitat.DesireRadius;
         }
 
         public double Distanse(Molecule other)

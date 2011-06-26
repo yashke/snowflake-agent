@@ -28,7 +28,10 @@ namespace Crystals
         /// [Celcius]
         /// </summary>
         public double Temperature { get; set; }
-     
+
+        public double Desire { get; set; }
+        public double DesireRadius { get; set; }
+
         public Double Density { get; set; }
         public Double Volume { get; private set; }
         public UInt32 MoleculeCount { get { return (UInt32)(Density * Volume); } }
@@ -67,13 +70,15 @@ namespace Crystals
         /// <param name="temperature"></param>
         /// <param name="density"></param>
 
-        public Habitat(double radius, double temperature, double density, double centerX, double centerY )
+        public Habitat(double radius, double temperature, double density, double centerX, double centerY, double desire, double desireRadious )
         {
             this.Temperature = temperature;
             this.Density = density;
             this.Volume = Math.PI * radius * radius;
             this.Density_Current = density;
             this.Radius = radius;
+            this.Desire = desire;
+            this.DesireRadius = desireRadious;
             Logger = new Logger();
          
             NewBindingListeners = new List<NewBindingListener>();

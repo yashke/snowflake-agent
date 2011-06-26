@@ -16,7 +16,7 @@ namespace CrystalsTests
         [SetUp]
         public void SetUp()
         {
-            habitat = new Habitat(1, 1, 1, 150, 150);
+            habitat = new Habitat(1, 1, 1, 150, 150, 1, 2*Molecule.RADIUS);
 
             mZero = new Molecule(habitat);
             mZero.Position.X = 0;
