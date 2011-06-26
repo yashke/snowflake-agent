@@ -31,6 +31,11 @@ namespace Crystals
             }
         }
 
+        public void DrawPoint(Pen pen, Graphics graphics)
+        {
+            graphics.DrawLine(pen, this.Point, this.Point);
+        }
+
 
         public Point Point
         {

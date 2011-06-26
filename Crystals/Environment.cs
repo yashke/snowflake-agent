@@ -8,6 +8,20 @@ namespace Crystals
 {
     public class Habitat
     {
+        class MoleculeAddListener : MoleculeAddedListener
+        {
+            Habitat habitat;
+            public MoleculeAddListener(Habitat habitat)
+            {
+                this.habitat = habitat;
+            }
+
+            public void MoleculeAdded(Molecule molecule)
+            {
+                habitat.FireMoleculeAdded(molecule);
+            }
+        }
+
         public Logger Logger { get; set; }
 
         /// <summary>
@@ -130,6 +144,14 @@ namespace Crystals
             foreach (NewBindingListener listener in NewBindingListeners)
             {
                 listener.NewBinding(molecule);
+            }
+        }
+
+        public void FireMoleculeAdded(Molecule molecule)
+        {
+            foreach (NewBindingListener listener in NewBindingListeners)
+            {
+                listener.MoleculeAdded(molecule);
             }
         }
 

@@ -24,7 +24,7 @@ namespace SnowCrystals
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
            
-            growthSimulation = new GrowthSimulation();
+            growthSimulation = new GrowthSimulation(150);
             env = new Habitat(150, 10, 0.02, growthSimulation.Center.X, growthSimulation.Center.Y);
             densityBarController = new DensityBarController(growthSimulation, env);
             densityBarController.BindListeners();

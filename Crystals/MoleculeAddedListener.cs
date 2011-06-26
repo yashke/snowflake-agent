@@ -5,9 +5,8 @@ using System.Text;
 
 namespace Crystals
 {
-    public interface NewBindingListener
+    public interface MoleculeAddedListener
     {
-        void NewBinding(Molecule flakeMolecule);
         void MoleculeAdded(Molecule molecule);
     }
 }

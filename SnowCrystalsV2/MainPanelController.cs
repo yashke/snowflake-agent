@@ -29,6 +29,12 @@ namespace SnowCrystals
                 view.MoleculePresenters.Add(presenter);
                 view.RepaintBindings();
             }
+
+            public void MoleculeAdded(Molecule molecule)
+            {
+                var presenter = new MoleculePresenter(molecule);
+                view.AllMoleculePresenters.Add(presenter);
+            }
         }
 
         class CloseListener : ICloseListener

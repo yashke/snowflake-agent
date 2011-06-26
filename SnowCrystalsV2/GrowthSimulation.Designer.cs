@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.densityBar = new System.Windows.Forms.TrackBar();
             this.densityLabel = new System.Windows.Forms.Label();
             this.speedLabel = new System.Windows.Forms.Label();
@@ -39,6 +40,7 @@
             this.mainPanel = new System.Windows.Forms.PictureBox();
             this.EventLabel = new System.Windows.Forms.Label();
             this.lblStatus = new System.Windows.Forms.Label();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.densityBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.speedBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mainPanel)).BeginInit();
@@ -140,6 +142,11 @@
             this.lblStatus.TabIndex = 10;
             this.lblStatus.Text = "Status:";
             // 
+            // timer1
+            // 
+            this.timer1.Interval = 500;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
             // GrowthSimulation
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -180,5 +187,6 @@
         private System.Windows.Forms.PictureBox mainPanel;
         private System.Windows.Forms.Label EventLabel;
         private System.Windows.Forms.Label lblStatus;
+        private System.Windows.Forms.Timer timer1;
     }
 }
