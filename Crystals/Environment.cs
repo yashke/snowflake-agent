@@ -66,25 +66,23 @@ namespace Crystals
 
             Molecules = new MoleculeContainer(this);
 
-            CreateCondensationCenter(centerX, centerY);
-
-            Thread = new Thread(new ThreadStart(this.Start));
-        }
-
-        void CreateCondensationCenter(double centerX, double centerY)
-        {
             this.CondensationCenter = new Molecule(this, true);
             this.CondensationCenter.Position.X = centerX;
             this.CondensationCenter.Position.Y = centerY;
             Molecules.Add(CondensationCenter);
            
+            Thread = new Thread(new ThreadStart(this.Start));
+        }
+
+        void CreateCondensationCenter()
+        {
             Molecule mTo = CondensationCenter, mAttach;
             foreach (var angle in new double[] { Math.PI * 5 / 6, Math.PI, 3 * Math.PI / 2, 3 * Math.PI / 2, 11 * Math.PI / 6 })
             {
                 mAttach = new Molecule(this);
                 mAttach.Position = mTo.Position.PointOfAngle(Molecule.TETRAHEDRON_SITE, angle);
                 Molecules.Add(mAttach);
-                mAttach.TryToAttachDefinitely(mTo);
+                mAttach.TryToAttachDefinitely(mTo); 
                 mTo = mAttach;
             }
         }
@@ -101,6 +99,8 @@ namespace Crystals
 
         public void Start()
         {
+            CreateCondensationCenter();
+
             for (int i = 0; i < MoleculeCount; i++)
             {
                 var molecule = new Molecule(this);
@@ -109,10 +109,8 @@ namespace Crystals
             }
             while (Opened)
             {
-                foreach (Molecule molecule in Molecules)
-                {
-                    molecule.Cycle();
-                }
+                for(int i = 0; i<Molecules.Count; i++)
+                    Molecules[i].Cycle();
             }
         }
 
@@ -135,9 +133,9 @@ namespace Crystals
             }
         }
 
-        public List<Molecule> FlakeMolecules()
+       /* public List<Molecule> FlakeMolecules()
         {
             return Molecules.FlakeMolecules();
-        }
+        }*/
     }
 }

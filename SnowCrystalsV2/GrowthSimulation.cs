@@ -118,7 +118,7 @@ namespace SnowCrystals
         private void mainPanel_Paint(object sender, PaintEventArgs e)
         {
             Graphics graphics = e.Graphics;
-            drawCore(graphics);
+            //drawCore(graphics);
             drawMolecules(graphics);
         }
 

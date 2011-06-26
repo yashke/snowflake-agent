@@ -14,7 +14,7 @@ namespace Crystals
             Habitat = habitat;
         }
 
-        public List<MoleculePresenter> FlakeMoleculePresenters()
+       /* public List<MoleculePresenter> FlakeMoleculePresenters()
         {
             List<MoleculePresenter> presenters = new List<MoleculePresenter>();
             foreach (Molecule molecule in Habitat.FlakeMolecules())
@@ -22,6 +22,6 @@ namespace Crystals
                 presenters.Add(molecule.Presenter);
             }
             return presenters;
-        }
+        }*/
     }
 }

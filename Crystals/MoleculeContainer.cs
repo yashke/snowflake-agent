@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Drawing;
 using System.Threading;
+using System.Collections;
 
 namespace Crystals
 {
@@ -20,17 +21,27 @@ namespace Crystals
 
             public void MoleculeAttached(Molecule molecule)
             {
+                habitat.Molecules.FlakeMoleculesCount++;
                 habitat.FireNewBinding(molecule);
             }
         }
 
-        public List<Molecule> container;
+        public ArrayList container;
+        public int FlakeMoleculesCount = 0;
         public Habitat Habitat;
 
         public MoleculeContainer(Habitat habitat)
         {
-            container = new List<Molecule>();
+            container = new ArrayList();
             Habitat = habitat;
+        }
+
+        public Molecule this[int index]
+        {
+            get
+            {
+                return (Molecule)container[index];
+            }
         }
 
         public Molecule GetMoveInterferer(Molecule molecule)
@@ -80,10 +91,11 @@ namespace Crystals
 
         public bool Remove(Molecule item)
         {
-            return container.Remove(item);
+             container.Remove(item);
+             return true;
         }
 
-        public List<Molecule> FlakeMolecules()
+        /*public List<Molecule> FlakeMolecules()
         {
             List<Molecule> molecules = new List<Molecule>();
             
@@ -98,7 +110,7 @@ namespace Crystals
                 }
             }
             return molecules;
-        }
+        }*/
 
         #endregion
 
@@ -106,7 +118,7 @@ namespace Crystals
 
         public IEnumerator<Molecule> GetEnumerator()
         {
-            return container.GetEnumerator();
+            return (IEnumerator<Molecule>)container.GetEnumerator();
         }
 
         #endregion
