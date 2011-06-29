@@ -22,7 +22,7 @@ namespace SnowCrystals
         static void Main()
         {
             float radius = 200, temperature = 10, density = (float)0.01;
-            float scale = (float)0.5;
+            float scale = (float)1;
             float Desire = 1;
             float DesireRadiusScale = 10;
             double DesireRadius = Molecule.RADIUS * DesireRadiusScale;

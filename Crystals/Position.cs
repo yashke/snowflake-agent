@@ -181,7 +181,8 @@ namespace Crystals
         public static Position NextRandomPosition(double centerX, double centerY, double radius, double speed, Molecule molecule, bool fromBorder)
         {
             var alpha = 2 * Math.PI * random.NextDouble();
-            var distance = fromBorder ? radius - 1 : (radius - 21) * Math.Sqrt(random.NextDouble()) + 20;
+            var distance = fromBorder ? (radius - Molecule.TETRAHEDRON_SITE) :
+                (radius - Molecule.TETRAHEDRON_SITE) * Math.Sqrt(random.NextDouble()) + Molecule.TETRAHEDRON_SITE;
 
             var x = distance * Math.Cos(alpha) + centerX;
             var y = distance * Math.Sin(alpha) + centerY;
