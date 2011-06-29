@@ -19,12 +19,23 @@ namespace SnowCrystals
             {
                 view = v;
             }
-
             public void NewBinding(Molecule molecule)
             {
-                view.MoleculePresenters.Add(new MoleculePresenter(molecule));
-                view.Invalidate();
-                view.StatusMessage("New Binding");
+                var presenter = new MoleculePresenter(molecule);
+                
+                Logger.Log("Flake point", presenter.Point);
+                view.StatusMessage(String.Format("{0}", presenter.Point));
+                
+                view.MoleculePresenters.Add(presenter);
+                view.RepaintBindings();
+            }
+
+            public void MoleculeAdded(Molecule molecule)
+            {
+                var presenter = new MoleculePresenter(molecule);
+                view.AllMoleculePresenters.Add(presenter);
+                Logger.Log("All molecules count", view.AllMoleculePresenters.Count);
+                view.StatusMessage(String.Format("{0}", view.AllMoleculePresenters.Count));
             }
         }
 

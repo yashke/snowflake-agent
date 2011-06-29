@@ -108,7 +108,7 @@ namespace Crystals
         /// <returns></returns>
         public Position PointOfAngle(double r, double angle)
         {
-            return new Position(X + r * Math.Cos(angle), Y + r * Math.Sin(angle), null, Molecule);
+            return new Position(X + r * Math.Cos(angle), Y + r * Math.Sin(angle), new V(0, 0), Molecule);
         }
 
         public void Move()

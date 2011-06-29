@@ -17,12 +17,26 @@ namespace Crystals
     {
         public static double RADIUS = 2.5;
         public static double TETRAHEDRON_SITE = 3.9;
-        
+
         List<IPositionChangeListener> positionChangeListeners = new List<IPositionChangeListener>();
 
         Habitat habitat;
 
-        public bool BelongsToFlake { get; set; }
+        public bool Attachable { get { return AttachedIteration < habitat.Iteration; } }
+        public bool BelongsToFlake;
+        private int? attachedIteration;
+        public int? AttachedIteration
+        {
+            get
+            {
+               return  attachedIteration;
+            }
+            set
+            {
+                attachedIteration = value;
+                BelongsToFlake = true;
+            }
+        }
         public BoundType BoundType { get; set; }
 
         public double HabitatRadius { get { return habitat.Radius; } }
@@ -115,8 +129,8 @@ namespace Crystals
             this.habitat = habitat;
             if (type == InitMoleculeType.Center)
             {
-                BelongsToFlake = true;
-                Position = new Position(0, 0, null, this);
+                Position = new Position(0, 0, new V(0, 0), this);
+                AttachedIteration = 0;
             }
             else
             {
@@ -137,12 +151,12 @@ namespace Crystals
                 Molecule closest = habitat.FindMostDesiredOrInterfering(this);
                 if (closest != null)
                 {
-                    if (closest.BelongsToFlake)
+                    if (closest.Attachable)
                     {
                         habitat.Logger.Log("TRY");
                         TryToAttach(closest);
                     }
-                    else if (IsNearConflict(closest))
+                    else if (!BelongsToFlake && IsNearConflict(closest))
                     {
                         habitat.Logger.Log("BUMP");
                         this.Bump(closest);
@@ -176,9 +190,8 @@ namespace Crystals
 
         public void TryToAttach(Molecule boundMember1)
         {
-            //if (random.NextDouble() > DESIRE)
             var dist = this.Distanse(boundMember1);
-            if (random.NextDouble() < (1 - dist/habitat.DesireRadius) * habitat.Desire)
+            if (random.NextDouble() <= habitat.Desire)
             {
                 TryToAttachDefinitely(boundMember1);
             }
@@ -193,7 +206,7 @@ namespace Crystals
                 int count3 = 0, bound3 = 0;
                 var boundMember3 = boundMember1.LastInCell((int)bound1, true, ref count3, ref bound3);
 
-                this.BelongsToFlake = true;
+                AttachedIteration = habitat.Iteration;
                 boundMember1.Neigbours[(int)bound1] = this;
                 this.Neigbours[(int)bound1] = boundMember1;
                 this.BoundType = boundMember1.BoundType == BoundType.I ? BoundType.II : BoundType.I;
@@ -234,7 +247,7 @@ namespace Crystals
         public bool IsDesired(Molecule other, out double dist)
         {
             dist = Distanse(other);
-            return dist <=  habitat.DesireRadius;
+            return dist <= habitat.DesireRadius;
         }
 
         public bool IsDesired(Molecule other)

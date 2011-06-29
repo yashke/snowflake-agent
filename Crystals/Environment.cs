@@ -57,6 +57,8 @@ namespace Crystals
             }
         }
 
+        public int Iteration = 0;
+
         public List<NewBindingListener> NewBindingListeners;
 
         public MoleculeContainer Molecules;
@@ -120,13 +122,13 @@ namespace Crystals
         public void Start()
         {
             CreateCondensationCenter();
-
             for (int i = 0; i < MoleculeCount; i++)
             {
                 CreateMolecule(Molecule.InitMoleculeType.Initial);
             }
             while (Opened)
             {
+                Iteration++;
                 for(int i = 0; i<Molecules.Count; i++)
                     Molecules[i].Cycle();
             }
@@ -140,7 +142,6 @@ namespace Crystals
         public Molecule FindMostDesiredOrInterfering(Molecule molecule)
         {
             return Molecules.FindMostDesiredOrInterfering(molecule);
-
         }
 
         public void AddNewBindingListener(NewBindingListener listener)

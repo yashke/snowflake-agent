@@ -21,7 +21,7 @@ namespace CrystalsTests
             mZero = new Molecule(habitat);
             mZero.Position.X = 0;
             mZero.Position.Y = 0;
-            mZero.BelongsToFlake = true;
+            mZero.AttachedIteration = 0;
             mZero.BoundType = BoundType.I;
 
         }

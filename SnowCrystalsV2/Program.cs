@@ -21,12 +21,11 @@ namespace SnowCrystals
         [STAThread]
         static void Main()
         {
-            double radius = 300, temperature = 10, density = 0.002;
+            double radius = 200, temperature = 10, density = 0.01;
             float scale = (float)0.5;
-            double Desire = 0.55;
-            double DesireRadius = Molecule.RADIUS * 7;
-
-
+            double Desire = 1;
+            double DesireRadius = Molecule.RADIUS * 10;
+            
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
            
