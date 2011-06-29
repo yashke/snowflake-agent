@@ -22,10 +22,10 @@ namespace SnowCrystals
             public void NewBinding(Molecule molecule)
             {
                 var presenter = new MoleculePresenter(molecule);
-                
+
                 Logger.Log("Flake point", presenter.Point);
                 view.StatusMessage(String.Format("{0}", presenter.Point));
-                
+
                 view.MoleculePresenters.Add(presenter);
                 view.RepaintBindings();
             }
@@ -54,13 +54,45 @@ namespace SnowCrystals
             }
         }
 
-        public MainPanelController(GrowthSimulation v,  Habitat env)
+        class ParametersChangedListener : IParametersChangedCloseListener
+        {
+            Habitat habitat;
+
+            public ParametersChangedListener(Habitat env)
+            {
+                habitat = env;
+            }
+
+            public double DesireChanged(double newDesire)
+            {
+                habitat.Desire = newDesire;
+                return habitat.Desire;
+            }
+
+            public double DesireRadiusChanged(double newDesireRadiusScale)
+            {
+                habitat.DesireRadius = Molecule.RADIUS * newDesireRadiusScale;
+                return habitat.DesireRadius;
+            }
+        }
+
+        public MainPanelController(GrowthSimulation v, Habitat env)
         {
             view = v;
             environment = env;
             environment.AddNewBindingListener(new BindingListener(view));
             view.AddCloseListener(new CloseListener(env));
+            view.AddParametersChangedListener(new ParametersChangedListener(env));
+            
             view.StatusMessage("Started");
         }
+    }
+
+    public interface IParametersChangedCloseListener
+    {
+         double DesireChanged(double newDesire);
+
+         double DesireRadiusChanged(double newDesireRadiusScale);
+
     }
 }

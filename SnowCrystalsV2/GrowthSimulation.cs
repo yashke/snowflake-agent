@@ -16,6 +16,7 @@ namespace SnowCrystals
         private List<DensityChangeListener> densityChangeListeners = new List<DensityChangeListener>();
         private List<SpeedChangeListener> speedChangeListeners = new List<SpeedChangeListener>();
         private List<ICloseListener> closeListeners = new List<ICloseListener>();
+        private List<IParametersChangedCloseListener> parametersChangedListeners = new List<IParametersChangedCloseListener>();
 
         Pen pen;
         Pen moleculePen;
@@ -27,10 +28,6 @@ namespace SnowCrystals
         public ArrayList MoleculePresenters = new ArrayList();
         public ArrayList AllMoleculePresenters = new ArrayList();
 
-        public float Scale { get; private set; }
-
-        private int radius;
-
         public Point Center
         {
             get
@@ -39,15 +36,18 @@ namespace SnowCrystals
             }
         }
 
-        public GrowthSimulation(int radius, float scale)
+        public GrowthSimulation(int radius, float scale, float desire, float desireRadiusScale, float density)
         {
             InitializeComponent();
             Logger.StartLog();
 
-            this.radius = radius;
+            this.Radius = radius;
             this.Scale = scale;
+            this.Desire = desire;
+            this.DesireRadiusScale = desireRadiusScale;
+            this.Density = density;
             txtScale.Text = String.Format("{0}", Scale);
-
+       
             pen = new Pen(MainColor);
             moleculePen = new Pen(MoleculeColor);
         }
@@ -87,6 +87,13 @@ namespace SnowCrystals
         {
             closeListeners.Add(listener);
         }
+
+        public void AddParametersChangedListener(IParametersChangedCloseListener listener)
+        {
+            parametersChangedListeners.Add(listener);
+        }
+
+
 
         public void FireCloseProgram()
         {
@@ -171,5 +178,105 @@ namespace SnowCrystals
             if (float.TryParse(((TextBox)sender).Text, out sc))
                 Scale = sc;
         }
+
+        float desire;
+        float Desire
+        {
+            get
+            {
+                float d;
+                if (float.TryParse(txtDesire.Text, out d))
+                {
+                    desire = d;
+                }
+                return desire;
+            }
+            set
+            {
+                txtDesire.Text = String.Format("{0}", value);
+                desire = value;
+            }
+        }
+
+        float desireRadiusScale;
+        float DesireRadiusScale
+        {
+            get
+            {
+                float d;
+                if (float.TryParse(txtDesireR.Text, out d))
+                {
+                    desireRadiusScale = d;
+                }
+                return desireRadiusScale;
+            }
+            set
+            {
+                txtDesireR.Text = String.Format("{0}", value);
+                desireRadiusScale = value;
+            }
+        }
+
+        float density;
+        float Density
+        {
+            get
+            {
+                float d;
+                if (float.TryParse(txtDensity.Text, out d))
+                {
+                    density = d;
+                }
+                return density;
+            }
+            set
+            {
+                txtDensity.Text = String.Format("{0}", value);
+                density = value;
+            }
+        }
+
+        public float Scale { get; private set; }
+
+        int radius;
+        int Radius
+        {
+            get
+            {
+                int d;
+                if (int.TryParse(txtRadius.Text, out d))
+                {
+                    radius = d;
+                }
+                return radius;
+            }
+            set
+            {
+                txtRadius.Text = String.Format("{0}", value);
+                radius = value;
+            }
+        }
+
+        
+
+        private void txtDesireR_TextChanged(object sender, EventArgs e)
+        {
+            FireParametersChangedProgram(Desire, DesireRadiusScale);
+        }
+
+        private void txtDesire_TextChanged(object sender, EventArgs e)
+        {
+            FireParametersChangedProgram(Desire, DesireRadiusScale);
+        }
+
+        private void FireParametersChangedProgram(double desire, double desireRadiusScale)
+        {
+            foreach (IParametersChangedCloseListener listener in parametersChangedListeners)
+            {
+                listener.DesireChanged(desire);
+                listener.DesireRadiusChanged(desireRadiusScale);
+            }
+        }
+
     }
 }
